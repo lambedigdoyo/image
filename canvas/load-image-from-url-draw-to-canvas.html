@@ -127,21 +127,20 @@ button, input[type=button]:hover {
 
 <textarea id="code" spellcheck=false wrap=logical placeholder="write text here..."><script>
 var canvasBox = document.getElementById('canvasBox');
-var civas = document.createElement('canvas');
+var elvas = document.createElement('canvas');
 var inputURL = document.getElementById('inputURL');
-var b64Image = document.getElementById('b64Image');
 var img = document.getElementById('imgPreview');
 
 function toCanvas() {
 canvasBox.innerHTML = '';
-    canvasBox.appendChild(civas);
-var ctx = cvas.getContext('2d');
+canvasBox.appendChild(elvas);
+var ctx = elvas.getContext('2d');
   img.onload = function() { 
-    civas.width = img.width; 
-    civas.height = img.height;
+    elvas.width = img.width; 
+    elvas.height = img.height;
     ctx.drawImage(img, 0, 0, img.width, img.height);
   };
-  img.src = inputURL.value;
+  img.src = inputURL.value; // url
 }
 inputURL.oninput = toCanvas;
 toCanvas() 
@@ -150,20 +149,20 @@ toCanvas()
 
 <script>
 var canvasBox = document.getElementById('canvasBox');
-var civas = document.createElement('canvas');
+var elvas = document.createElement('canvas');
 var inputURL = document.getElementById('inputURL');
 var img = document.getElementById('imgPreview');
 //var b64Image = document.getElementById('b64Image');
 function toCanvas() {
 canvasBox.innerHTML = '';
-canvasBox.appendChild(civas);
-var ctx = civas.getContext('2d');
+canvasBox.appendChild(elvas);
+var ctx = elvas.getContext('2d');
 //img.setAttribute('crossOrigin', 'anonymous');   
   img.onload = function() { 
-    civas.width = img.width; 
-    civas.height = img.height;
+    elvas.width = img.width; 
+    elvas.height = img.height;
     ctx.drawImage(img, 0, 0, img.width, img.height);
-//    var b64 = civas.toDataURL('image/png');
+//    var b64 = elvas.toDataURL('image/png');
 //    b64Image.src = b64;
   };
 img.src = inputURL.value;
