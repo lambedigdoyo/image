@@ -139,7 +139,7 @@ var canvasBox = document.getElementById('canvasBox');
 var elvas = document.createElement('canvas');
 var inputURL = document.getElementById('inputURL');
 var img = document.getElementById('imgPreview');
-var b64Image = document.getElementById('b64Image');
+var blobImage = document.getElementById('blobImage');
 function toCanvas() {
 canvasBox.innerHTML = '';
 canvasBox.appendChild(elvas);
@@ -150,15 +150,14 @@ img.setAttribute('crossOrigin', 'anonymous');
     elvas.width = img.width; 
     elvas.height = img.height;
     ctx.drawImage(img, 0, 0, img.width, img.height);
-/* get blob from canvas */
+    /* get blob from canvas */
     elvas.toBlob((blob) => {
-//    var blobImage = document.getElementById("blobImage");
     var url = URL.createObjectURL(blob);
-    blobImage.onload = () => {
-      URL.revokeObjectURL(url);
-    };
+      blobImage.onload = () => {
+        URL.revokeObjectURL(url);
+      };
     blobImage.src = url;
-});
+    });
   };
 img.src = inputURL.value;
 
@@ -188,7 +187,6 @@ img.setAttribute('crossOrigin', 'anonymous');
 //    b64Image.src = b64;
 /* get blob from canvas */
     elvas.toBlob((blob) => {
-//    var blobImage = document.getElementById("blobImage");
       var url = URL.createObjectURL(blob);
       blobImage.onload = () => {
         URL.revokeObjectURL(url);
