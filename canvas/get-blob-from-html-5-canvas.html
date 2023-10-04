@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get Canvas blob</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  padding: 3vh 15vw;
+  height: 100vh;
+  margin: 0;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  background-color: #012021;
+  }
+.container {
+  width: 70vw;
+  height: 100vh;
+  padding: 10px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #eeeDCD;
+  border: 1px solid #aaa;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: 200px; 
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+.gridBox {
+  display: grid;
+  width: 100%;
+  height: 480px;
+  margin: 10px auto;
+  gap: 4px;
+  grid-template-columns: calc(27% - 2px) calc(46% - 2px) calc(27% - 2px);
+  text-align: center;
+  font-size: 0;
+}
+.grid1, .grid2, .grid3 {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+  background: url('data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoKAAoAAIAOJaQAAudlk13mAAD+//4Kn9WRnOaxX4tuiRSEve45zt1EowEOBfNgalwAAA==');
+  padding: 3px;
+  border: 1px solid #888;
+}
+.grid1::before, .grid3::before {
+  content: 'canvas';
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 50%;
+  transform: translate(0, -50%);
+  font: bold 32px Arial;
+  color: gold;
+  text-shadow: 1px 1px 1px #000, -1px -1px 1px #000;
+}
+.grid3::before {
+  content: 'url-blob';
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Get Canvas blob</h1>
+<h2>HTML Canvas Element: toBlob() Method</h2>
+
+  <div class=gridBox>
+    <div class=grid1> 
+      <canvas id=gr-canvas2 width=150 height=150></canvas>
+    </div>
+    <div class=grid2>
+      <textarea id="code" spellcheck=false wrap=logical style='height: 100%; margin: 0;'>
+<style>
+.gridBox {
+  display: grid;
+  width: 100%;
+  height: 200px;
+  margin: 10px auto;
+  gap: 4px;
+  grid-template-columns: calc(50% - 2px) calc(50% - 2px);
+  text-align: center;
+  font-size: 0;
+}
+.grid1, .grid2 {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  background: url('data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoKAAoAAIAOJaQAAudlk13mAAD+//4Kn9WRnOaxX4tuiRSEve45zt1EowEOBfNgalwAAA==');
+  padding: 3px;
+  border: 1px solid #888;
+}
+</style>
+
+<div class=container>
+  <div class=gridBox>
+    <div class=grid1> 
+      <canvas id=gr-canvas2 width=200 height=200></canvas>
+    </div>
+    <div class=grid2>
+      <img id=blobImage2 />
+    </div>
+  </div>
+</div>  
+
+<script>
+/* create image with html-5 canvas */
+var canvas2 = document.getElementById("gr-canvas2");
+var context = canvas2.getContext('2d');
+context.fillStyle = "red";
+context.arc(100, 100, 100, 0, 2*Math.PI);
+context.fill();
+/* get blob from canvas */ 
+canvas2.toBlob((blob) => {
+  var blobImage2 = document.getElementById("blobImage2");
+  var urlBlob2 = URL.createObjectURL(blob);
+  blobImage2.onload = () => {
+    URL.revokeObjectURL(urlBlob2);
+  };
+  blobImage2.src = urlBlob2;
+});
+</script></textarea>
+    </div>
+    
+    <div class=grid3>
+      <img id=blobImage2 />
+    </div>
+  </div>
+      
+</div>
+
+<script>
+var canvasBox = document.getElementById('canvasBox');
+var elvas = document.createElement('canvas');
+var inputURL = document.getElementById('inputURL');
+var img = document.getElementById('imgPreview');
+var blobImage = document.getElementById('blobImage');
+function toCanvas() {
+canvasBox.innerHTML = '';
+canvasBox.appendChild(elvas);
+
+var ctx = elvas.getContext('2d');
+img.setAttribute('crossOrigin', 'anonymous');   
+  img.onload = function() { 
+    elvas.width = img.width; 
+    elvas.height = img.height;
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+//    var b64 = elvas.toDataURL('image/png');
+//    b64Image.src = b64;
+/* get blob from canvas */
+    elvas.toBlob((blob) => {
+      var url = URL.createObjectURL(blob);
+      blobImage.onload = () => {
+        URL.revokeObjectURL(url);
+      };
+      blobImage.src = url;
+    });
+  };
+img.src = inputURL.value;
+}
+inputURL.oninput = toCanvas;
+toCanvas() 
+</script>
+
+<script>
+/* create image with html-5 canvas */
+var canvas2 = document.getElementById("gr-canvas2");
+var context = canvas2.getContext('2d');
+context.fillStyle = "red";
+context.arc(75, 75, 75, 0, 2*Math.PI);
+context.fill();
+/* get blob from canvas */ 
+canvas2.toBlob((blob) => {
+  var blobImage2 = document.getElementById("blobImage2");
+  var urlBlob2 = URL.createObjectURL(blob);
+  blobImage2.onload = () => {
+    URL.revokeObjectURL(urlBlob2);
+  };
+  blobImage2.src = urlBlob2;
+});
+</script>
+
+</body>
+</html>
