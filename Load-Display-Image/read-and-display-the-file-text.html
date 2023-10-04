@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Read and Display The File Text.</title>
+
+<link rel=stylesheet href=../src/css/grPelangi-desert.css />
+<script src=../src/js/grPelangi.js></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  padding: 3vh 15vw;
+  height: 100vh;
+  margin: 0;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  background-color: #012021;
+  }
+.container {
+  width: 70vw;
+  height: 94vh;
+  padding: 10px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #eeeDCD;
+  border: 1px solid #aaa;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Read The File Text</h1>
+<h2>blob, new FileReader()</h2>
+
+<h3>Display: (p-HTML tag)</h3>
+<p id=p-result style='width: 100%; background: lightgreen; padding: 10px'></p>
+<h3>Display (input type text)</h3>
+<input type=text id=textResult2 style='width: 100%' />
+<h3>Didplay (Iframe)
+<iframe id=ifr style='width: 100%; height: 45px; outline:none; border: 1px solid #555; margin: 10px auto; display: block; display: flex; align-items: center; justify-content: center'></iframe>
+
+<pre class='grpelangi linenums'>&lt;p id=p-result style='width: 100%; background: lightgreen; padding: 10px'&gt;&lt;/p&gt;
+
+&lt;input type=text id=textResult2 style='width: 100%' /&gt;
+
+&lt;iframe id=ifr style='width: 100%; height: 45px; outline:none; border: 1px solid #555; margin: 10px auto; display: block; display: flex; align-items: center; justify-content: center'&gt;&lt;/iframe&gt;</pre>
+
+<pre class='grpelangi linenums'>&lt;script&gt;
+var blob = new Blob(["Some cookies are necessary for our website and services to function properly."], { type: "text/plain" });
+url = window.URL.createObjectURL(blob); 
+
+document.getElementById('ifr').src = url;
+document.getElementById('ifr').onload = ()=> {
+  URL.revokeObjectURL(url); // free memory
+}
+  
+var reader1 = new FileReader();
+var reader2 = new FileReader();
+reader1.onload = ()=> {
+  document.getElementById('p-result').innerHTML = window.atob(reader1.result.split(',')[1]);
+}
+reader2.onload = ()=> {
+  document.getElementById('textResult2').value = reader2.result;
+}
+reader1.readAsDataURL(blob);
+reader2.readAsText(blob);
+&lt;/script&gt;</pre>
+
+</div>
+
+<script>
+var blob = new Blob(["Some cookies are necessary for our website and services to function properly."], { type: "text/plain" });
+url = window.URL.createObjectURL(blob); 
+
+document.getElementById('ifr').src = url;
+document.getElementById('ifr').onload = ()=> {
+  URL.revokeObjectURL(url); // free memory
+}
+  
+var reader1 = new FileReader();
+var reader2 = new FileReader();
+reader1.onload = ()=> {
+  document.getElementById('p-result').innerHTML = window.atob(reader1.result.split(',')[1]);
+}
+reader2.onload = ()=> {
+  document.getElementById('textResult2').value = reader2.result;
+}
+reader1.readAsDataURL(blob);
+reader2.readAsText(blob);
+</script>
+
+<script>
+grPelangi();
+</script>
+
+</body>
+</html>
