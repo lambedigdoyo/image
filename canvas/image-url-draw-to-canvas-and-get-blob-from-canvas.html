@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drawing an Image from URL to a Canvas (img.crossOrigin) and get blob from Canvas</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  padding: 3vh 15vw;
+  height: 100vh;
+  margin: 0;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  background-color: #012021;
+  }
+.container {
+  width: 70vw;
+  height: 100vh;
+  padding: 10px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #eeeDCD;
+  border: 1px solid #aaa;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 200px); 
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+.title {
+  height: 22px;
+  padding: 1px 6px 0 6px;
+  font: normal 14px Arial;
+  }
+.imageBox {
+  width: calc(33.33% - 6px);
+  padding: 3px;
+  border: 2px solid transparent;
+  display: inline-block;
+}
+.content1, .content2, .content3, .content1 img, .content2 canvas, .content3 img {
+  width: 100%;
+  height: 100%;
+}
+.content1, .content2, .content3 {
+  position: relative;
+}
+.content1 img, .content2 canvas, .content3 img {
+  background: url(data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoKAAoAAIAOJaQAAudlk13mAAD+//4Kn9WRnOaxX4tuiRSEve45zt1EowEOBfNgalwAAA==);
+  border: 1px solid #555;
+}
+.content1::before, .content2::before, .content3::before {
+  content: 'from URL';
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 50%;
+  transform: translate(0, -50%);
+  font: bold 32px Arial;
+  color: red;
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff;
+}
+.content2::before {
+  content: 'from Canvas';
+}
+.content3::before {
+  content: 'from blob';
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Image URL to Canvas</h1>
+<h2>Drawing: URL to a canvas (with crossOrigin) and get Canvas blob</h2>
+  <div style='width: 100%; padding: 10px 0'>
+    Paste Image Link here: <input type=text id=inputURL style='width: calc(100% - 200px)' value='https://source.unsplash.com/random/250x350/?woman' />
+  </div>
+  
+  <div class=imageBox>
+    <div class=content1>
+      <img id=imgPreview />
+    </div>
+  </div>
+
+  <div class=imageBox>
+    <div class=content2>
+      <div id=canvasBox></div>
+    </div>
+  </div>
+
+  <div class=imageBox>
+    <div class=content3>
+      <img id=blobImage />
+    </div>
+  </div>
+
+<textarea id="code" spellcheck=false wrap=logical placeholder="write text here..."><script>
+var canvasBox = document.getElementById('canvasBox');
+var elvas = document.createElement('canvas');
+var inputURL = document.getElementById('inputURL');
+var img = document.getElementById('imgPreview');
+var b64Image = document.getElementById('b64Image');
+function toCanvas() {
+canvasBox.innerHTML = '';
+canvasBox.appendChild(elvas);
+
+var ctx = elvas.getContext('2d');
+img.setAttribute('crossOrigin', 'anonymous');   
+  img.onload = function() { 
+    elvas.width = img.width; 
+    elvas.height = img.height;
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+/* get blob from canvas */
+    elvas.toBlob((blob) => {
+//    var blobImage = document.getElementById("blobImage");
+    var url = URL.createObjectURL(blob);
+    blobImage.onload = () => {
+      URL.revokeObjectURL(url);
+    };
+    blobImage.src = url;
+});
+  };
+img.src = inputURL.value;
+
+}
+inputURL.oninput = toCanvas;
+toCanvas() 
+</script></textarea>    
+</div>
+
+<script>
+var canvasBox = document.getElementById('canvasBox');
+var elvas = document.createElement('canvas');
+var inputURL = document.getElementById('inputURL');
+var img = document.getElementById('imgPreview');
+var blobImage = document.getElementById('blobImage');
+function toCanvas() {
+canvasBox.innerHTML = '';
+canvasBox.appendChild(elvas);
+
+var ctx = elvas.getContext('2d');
+img.setAttribute('crossOrigin', 'anonymous');   
+  img.onload = function() { 
+    elvas.width = img.width; 
+    elvas.height = img.height;
+    ctx.drawImage(img, 0, 0, img.width, img.height);
+//    var b64 = elvas.toDataURL('image/png');
+//    b64Image.src = b64;
+/* get blob from canvas */
+    elvas.toBlob((blob) => {
+//    var blobImage = document.getElementById("blobImage");
+      var url = URL.createObjectURL(blob);
+      blobImage.onload = () => {
+        URL.revokeObjectURL(url);
+      };
+      blobImage.src = url;
+    });
+  };
+img.src = inputURL.value;
+
+}
+inputURL.oninput = toCanvas;
+toCanvas() 
+</script>
+
+
+</body>
+</html>
