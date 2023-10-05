@@ -3,18 +3,18 @@
 pre .str, code .str { color: #68FC5E; } /* string */
 pre .str:hover, code .str:hover { color: red }
 pre .kwd, code .kwd { color: #fFA4fA; } /* keyword */
-pre .com, code .com { color: #999; background: rgba(155,155,155,0.3); font: normal 13px Arial} 
+pre .com, code .com { color: #999; background: rgba(155,155,155,0.3); font-family: Arial} 
 pre .com:hover, code .com:hover {color: yellow; background-color: #333;} /* comment */
 pre .typ, code .typ { color: #FB5F5F; } /* type */
 pre .lit, code .lit { color: #ECD838;} /* literal */
 pre .pun, code .pun { color: #d7Af7E; } /* punctuation  */
-pre .pln, code .pln { color: #EFFAA2} /* plaintext */
-pre .tag, code .tag { color: #8af6ef;} /* html/xml */
+pre .pln, code .pln { color: #faFec4; color: #FAFCd4} /* plaintext */
+pre .tag, code .tag { color: #8af6ef} /* html/xml */
 pre .htm, code .htm { color: #dda0dd; } /* html tag */
 pre .xsl, code .xsl { color: #d0a0d0; } /* xslt tag */
-pre .atn, code .atn { color: red; } /* html/xml attribute name */
-pre .atv, code .atv { color: #fca756; } /* html/xml attribute value - */
-pre .dec, code .dec { color: #C6A4F8; } /* decimal - blue */
+pre .atn, code .atn { color: gold; color: #FB6767;} /* html/xml attribute name */
+pre .atv, code .atv { color: #D2F8A4; color: #67F8B4; color: #678EF8} /* html/xml attribute value - */
+pre .dec, code .dec { color: #C6A4F8; } /* decimal - DOCTYPE */
 a { text-decoration: none;}
 pre.grpelangi, code.grpelangi {
   font: normal 14px Consolas, Monospace;
