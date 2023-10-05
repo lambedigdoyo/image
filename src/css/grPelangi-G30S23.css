@@ -44,7 +44,7 @@ li.L1,li.L3,li.L5,li.L7,li.L9 { }
 
 /* print is mostly unchanged from default at present  */
 li.L0, li.L1, li.L2, li.L3, li.L4, li.L5, li.L6, li.L7, li.L8, li.L9{list-style-type: decimal; }
-li.L1, li.L3, li.L5, li.L7, li.L9 {background-color: rgba(50, 50, 50, 0.2);}
+li.L1, li.L3, li.L5, li.L7, li.L9 {background-color: rgba(110, 120, 110, 0.1);}
 pre.grpelangi ol.linenums{ 
   float: left; 
   min-width: 100%;
