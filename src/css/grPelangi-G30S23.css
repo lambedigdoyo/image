@@ -14,7 +14,7 @@ pre .htm, code .htm { color: #dda0dd; } /* html tag */
 pre .xsl, code .xsl { color: #d0a0d0; } /* xslt tag */
 pre .atn, code .atn { color: red; } /* html/xml attribute name */
 pre .atv, code .atv { color: #fca756; } /* html/xml attribute value - */
-pre .dec, code .dec { color: purple; } /* decimal - blue */
+pre .dec, code .dec { color: #C6A4F8; } /* decimal - blue */
 a { text-decoration: none;}
 pre.grpelangi, code.grpelangi {
   font: normal 14px Consolas, Monospace;
