@@ -3,7 +3,7 @@
 pre .str, code .str { color: #68FC5E; } /* string */
 pre .str:hover, code .str:hover { color: red }
 pre .kwd, code .kwd { color: #fFA4fA; } /* keyword */
-pre .com, code .com { color: #999; background: rgba(155,155,155,0.3); font-family: Arial} 
+pre .com, code .com { color: #999; background: rgba(155,155,155,0.3); font: normal 13px Arial} 
 pre .com:hover, code .com:hover {color: yellow; background-color: #333;} /* comment */
 pre .typ, code .typ { color: #FB5F5F; } /* type */
 pre .lit, code .lit { color: #ECD838;} /* literal */
