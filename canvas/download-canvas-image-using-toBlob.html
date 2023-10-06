@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Downloading canvas image using toBlob</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  width: 100vw;
+  padding: 2vh 10vw;
+  margin: 0;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  background-color: #03110a;
+  }
+.container {
+  width: 80vw;
+  height: 96vh;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px 0;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+.gridBox {
+  display: grid;
+  width: 100%;
+  min-height: 40px;
+  margin: 10px auto;
+  gap: 18px;
+  grid-template-columns: calc(50% - 9px) calc(50% - 9px);
+  font-size: 0;
+}
+.grid1, .grid2 {
+  width: 100%;
+  height: 100%;
+  background-color: #666;
+  padding: 3px;
+  border: 3px double #fff;
+}
+.imgBox, #cvsBox {
+  max-width: 260px;
+  height: calc(100% - 25px);
+  margin: 3px auto 0;
+  border: 1px solid #fff;
+  outline-top: 5px solid #555;
+  background: url('data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoKAAoAAIAOJaQAAudlk13mAAD+//4Kn9WRnOaxX4tuiRSEve45zt1EowEOBfNgalwAAA==');
+}
+.imgBox img, #cvsBox canvas {
+  max-width: 100%;
+  height: auto;
+}
+.title {
+  width: 100%;
+  height: 22px;
+  padding: 1px 6px 0 6px;
+  font: normal 14px Arial;
+  background-color: #555;
+  color: #fff;
+  border-bottom: 1px solid #fff;
+  text-align: center;
+  }
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Downloading canvas image using toBlob</h1>
+<h2>Saving Canvas as blob and then blob as file</h2>
+Paste Image Link here: <input type=text id=imgLink value='https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR-city-night-1.jpg' style='width: calc(100% - 200px); margin: 20px auto 0'/>
+
+<a href='javascript:void()' id='downloadLink'><h3 style='margin: 0'>Download Canvas</h3></a>
+
+  <div class=gridBox>
+    <div class=grid1><div class=title>Image from URL</div>
+      <div class=imgBox>
+        <img id=imagePrev />
+      </div>
+    </div>
+    <div class=grid2><div class=title>Canvas Image</div>
+      <div id=cvsBox></div>
+    </div>
+  </div>
+
+<textarea id="code" spellcheck=false wrap=logical style='height: 115px'>https://source.unsplash.com/random/260x180?pretty/
+https://source.unsplash.com/random/260x180/
+https://picsum.photos/260/160/
+https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/svg/GR-anima-1c.svg
+https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR1.svg
+https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR-cah-ndase.png</textarea>
+
+</div>
+
+<script>
+var imgLink = document.getElementById('imgLink');
+var cvsBox = document.getElementById('cvsBox');
+var img = document.getElementById('imagePrev');
+var canvas = document.createElement('canvas');
+var context = canvas.getContext('2d');
+
+function image2cvs() {
+cvsBox.innerHTML = '';
+document.getElementById('cvsBox').appendChild(canvas);
+img.onload = ()=> {
+  var iw = img.width, ih = img.height;
+  canvas.width = iw;
+  canvas.height = ih;
+  context.drawImage(img, 0, 0, iw, ih); 
+  var cData = canvas.toDataURL(); // alert(cData)
+}
+
+img.crossOrigin = 'anonymous';
+img.src = imgLink.value;
+}
+
+function downloadCVS() {
+document.querySelector('canvas').toBlob((blob) => {
+  let URL = window.URL || window.webkitURL || window;
+  let a = document.createElement("a");  
+  a.href = URL.createObjectURL(blob);
+  a.download = "my.png";
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  });
+}
+document.getElementById('downloadLink').onclick = downloadCVS;
+imgLink.oninput = image2cvs;
+image2cvs();
+</script>
+
+</body>
+</html>
