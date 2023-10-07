@@ -28,6 +28,7 @@ pre.grpelangi {
   margin: 1em auto;
   border-radius: 6px;
   max-height: 90%;
+  overflow: auto;
 }
 pre.grpelangi a, code.grpelangi a {
    text-decoration:none;
