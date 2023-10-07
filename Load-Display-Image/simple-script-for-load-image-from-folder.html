@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple script for load image from folder</title>
+
+<script src='../src/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+  background-color: #443;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+.thumbBox {
+  margin: 10px auto;
+  width: 100%;
+  min-height: 78px;
+  background-color: #cfcfce;
+  padding: 3px 8px 8px 3px;
+  font-size: 0;
+  text-align: center;
+}
+.thumbBox img {
+  height: 70px;
+  max-width: 100%; 
+  border: 1px solid #888; 
+  margin: 5px auto 0;
+  margin-left: 5px;
+  margin-right: 0;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');  
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Simple script for load image from folder</h1>
+<h2>Upload image from folder using file input & simple javascript</h2>
+
+Select your file: <input type="file" id="browseImg" accept='image/*' style='width: calc(100% - 170px); margin: 10px 0' />
+<div class="thumbBox"><img id="thumbnail" src='https://raw.githubusercontent.com/lambedigdoyo/image/main/src/images/frog-400x260.jpg' /></div>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script>
+var browseImg = document.getElementById('browseImg');
+var thumbnail = document.getElementById('thumbnail');
+
+browseImg.onchange = evt => {
+  const [file] = browseImg.files;
+  if (file) {
+    thumbnail.src = URL.createObjectURL(file);
+    thumbnail.title = file.name;
+    URL.revokeObjectURL(thumbnail.src);
+  }
+}
+</script>
+
+<script src='../src/js/grPelangi-html-viewer.js'></script>
+
+</body>
+</html>
