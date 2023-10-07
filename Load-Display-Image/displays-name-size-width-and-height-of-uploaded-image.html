@@ -117,9 +117,9 @@ browseImg.onchange = evt => {
      thumb.src = urlBlob; 
      thumb.onload = ()=> {
        thumb.title = file.name;
-       var fSize = file.size/1024; // alert(fSize);
+       var fSize = file.size/1024; 
      URL.revokeObjectURL(urlBlob);  
-       var fWH = thumb.width + 'px x ' + thumb.height + 'px'; alert(fWH)
+       var fWH = thumb.width + 'px x ' + thumb.height + 'px'; 
        fileData.textContent = ' file name: ' + file.name + '\n size: ' + fSize.toFixed(1) + '(kByte) \n dimension: ' + fWH;
     }
   }
