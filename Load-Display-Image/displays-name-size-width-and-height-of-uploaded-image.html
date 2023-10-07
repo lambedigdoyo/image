@@ -110,16 +110,18 @@ var thumbnail = document.getElementById('thumbnail');
 var fileData =  document.getElementById('fileData')
 browseImg.onchange = evt => {
   const [file] = browseImg.files;
-  if (file) {
-  var thumbnail = new Image();  
-    thumbnail.src = URL.createObjectURL(file);
-    thumbnail.onload = ()=> {
-    thumbnail.title = file.name;
-    var fSize = file.size/1024;
-    URL.revokeObjectURL(thumbnail.src);  
-    var fWH = thumbnail.width + 'px x ' + thumbnail.height + 'px';
-   fileData.textContent = ' file name: ' + file.name + '\n size: ' + fSize.toFixed(1) + '(kByte) \n dimension: ' + fWH;
-   }
+  if (file) { 
+   var urlBlob = URL.createObjectURL(file); //alert(urlBlob)      
+     thumbnail.src = urlBlob; 
+     var thumb = new Image(); 
+     thumb.src = urlBlob; 
+     thumb.onload = ()=> {
+       thumb.title = file.name;
+       var fSize = file.size/1024; // alert(fSize);
+     URL.revokeObjectURL(urlBlob);  
+       var fWH = thumb.width + 'px x ' + thumb.height + 'px'; alert(fWH)
+       fileData.textContent = ' file name: ' + file.name + '\n size: ' + fSize.toFixed(1) + '(kByte) \n dimension: ' + fWH;
+    }
   }
 }
 </script>
