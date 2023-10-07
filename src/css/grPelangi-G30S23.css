@@ -27,9 +27,7 @@ pre.grpelangi {
   padding: 0.2em;
   margin: 1em auto;
   border-radius: 6px;
-}
-pre.grpelangi {
-  height: auto;
+  max-height: 90%;
 }
 pre.grpelangi a, code.grpelangi a {
    text-decoration:none;
