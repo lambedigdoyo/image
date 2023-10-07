@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Displays Name, Size, Height & Width of uploaded Image</title>
+
+<script src='https://raw.githack.com/lambedigdoyo/image/main/src/js/grPelangi-auto2.js'></script> 
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+  background-color: #443;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+.thumbBox {
+  margin: 10px auto;
+  width: 100%;
+  height: 106px;
+  background-color: #cfcfce;
+  padding: 3px 8px 8px 3px;
+  font-size: 0;
+  display: flex;
+  align-item: center;
+  justify-content: center;
+  flex-direction: row;
+}
+.thumbBox img {
+  height: 90px;
+  max-width: 50%; 
+  border: 1px solid #888; 
+  margin: 5px;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');  
+  display: flex;
+}
+.thumbBox pre#fileData {
+  height: 90px;
+  width: 45%;
+  margin: 5px;
+  padding: 18px 6px;
+  background-color: #fff;
+  font: normal 14px Monospace;
+  text-align: left;
+  display: flex;
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Displays Name, Size, Height & Width of uploaded Image</h1>
+<h2>Get file name, file size, width & height of uploaded image</h2>
+
+Select your file: <input type="file" id="browseImg" accept='image/*' style='width: calc(100% - 170px); margin: 10px 0' />
+<div class="thumbBox"><pre id='fileData'></pre><img id="thumbnail" src='https://raw.githubusercontent.com/lambedigdoyo/image/main/src/images/frog-400x260.jpg' /></div>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script>
+var browseImg = document.getElementById('browseImg'); 
+var thumbnail = document.getElementById('thumbnail');
+var fileData =  document.getElementById('fileData')
+browseImg.onchange = evt => {
+  const [file] = browseImg.files;
+  if (file) {
+    thumbnail.src = URL.createObjectURL(file);
+    thumbnail.title = file.name;
+    var fSize = file.size/1024;  alert(fSize);
+    URL.revokeObjectURL(thumbnail.src);  
+    var fWH = thumbnail.width + 'px x ' + thumbnail.height + 'px'; alert(fWH)
+   fileData.textContent = ' file name: ' + file.name + '\n size: ' + fSize.toFixed(1) + '(kByte) \n dimension: ' + fWH;
+  }
+}
+</script>
+
+<script src='https://raw.githack.com/lambedigdoyo/image/main/src/js/grPelangi-html-viewer.js'></script>
+
+</body>
+</html>
