@@ -19,7 +19,7 @@ body {
   height: 100vh;
   padding: 2vh 20vw;
   margin: 0;
-  background-color: #443;
+  background-color: #223;
   font: normal 14px "Consolas", Monospace;
   overflow: hidden;
   box-shadow: inset 0 245px 140px #034;
@@ -49,23 +49,8 @@ h2 {
   padding: 0;
   color: darkred;
   }
-textarea {
-  display: block;
-  width: 100%;
-  height: calc(100% - 22px);    height: 150px;
-  padding: 6px;
-  margin: 0;                    margin: 10px auto 10px;
-  font: normal 14px Monospace;
-  border: 1px solid orange;
-  background-color: lightyellow;
-  resize: none;
-  cursor: auto!important;
-  }
 input, textarea, iframe {
   outline: none!important;
-}
-button, input[type=button]:hover {
- cursor: pointer;
 }
 .thumbBox {
   margin: 10px auto;
@@ -130,9 +115,9 @@ browseImg.onchange = evt => {
     thumbnail.src = URL.createObjectURL(file);
     thumbnail.onload = ()=> {
     thumbnail.title = file.name;
-    var fSize = file.size/1024;  alert(fSize);
+    var fSize = file.size/1024;
     URL.revokeObjectURL(thumbnail.src);  
-    var fWH = thumbnail.width + 'px x ' + thumbnail.height + 'px'; alert(fWH)
+    var fWH = thumbnail.width + 'px x ' + thumbnail.height + 'px';
    fileData.textContent = ' file name: ' + file.name + '\n size: ' + fSize.toFixed(1) + '(kByte) \n dimension: ' + fWH;
    }
   }
