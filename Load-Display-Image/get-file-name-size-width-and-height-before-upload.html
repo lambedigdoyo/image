@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get File Name, File Size, Height & Width before Upload</title>
+
+<script src='../src/js/grPelangi-auto.js'></script> 
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 17vw;
+  margin: 0;
+  background-color: #223;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 66vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+.previewBox {
+  margin: 10px auto;
+  width: 100%;
+  min-height: 14px;
+  background-color: #cfcfce;
+  padding: 3px;
+  font-size: 0;
+  text-align: center;  
+}
+.previewBox img {
+  height: auto;
+  max-width: 100%; 
+  border: 1px solid #888; 
+  margin: 0 auto;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');  
+}
+pre#fileData {
+  margin: 10px auto;
+  height: 70px;
+  width: 50%;
+  padding: 6px;
+  background-color: #fff;
+  border: 2px dotted #aaa;
+  font: normal 14px Monospace;
+  overflow: auto;
+  white-space: pre;
+}
+</style>
+ 
+</head>
+<body>
+ 
+<div class="container">
+ 
+<h1>Display File name, size, width &amp; height of uploaded Image</h1>
+<h2>Get file name, file size, image width &amp; image height before upload</h2>
+ 
+Select your file: <input type="file" id="loadFile" accept="image/*" style="width: calc(100% - 170px); margin: 10px 0">
+  <pre id="fileData"></pre>
+  <div class="previewBox">
+    <img id="imgPrev" src="https://raw.githubusercontent.com/lambedigdoyo/image/main/src/images/frog-400x260.jpg">
+    </div>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script>
+var loadFile = document.querySelector('#loadFile');
+loadFile.addEventListener('change', (e) => {
+  var file = e.target.files[0];
+  var blobURL = URL.createObjectURL(file);
+  var fName = 'file name: ' + file.name;
+  fileExtension = fName.replace(/^.*\./, ''); alert(fileExtension)
+  var fSize = 'file size: ' + (file.size/1024).toFixed(2);
+  document.getElementById('imgPrev').src = blobURL;
+  URL.revokeObjectURL(blobURL);
+  var pic = new Image();
+      pic.src = blobURL;
+      pic.onload = ()=> { 
+        var width = pic.width + 'px';
+        var height = pic.height + 'px';  alert(width + ' x ' + height);
+      document.getElementById('fileData').textContent = fName + '\n' + fSize + ' (kByte)\ndimension: ' + width + ' x ' + height;
+  }
+});
+</script>
+
+<script src=../src/js/grPelangi-html-viewer.js></script>
+  
+</body>
+</html>
