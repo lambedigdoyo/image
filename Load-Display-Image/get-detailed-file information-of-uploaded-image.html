@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get detailed file information of uploaded image</title>
+
+<script src='../src/js/grPelangi-auto2.js'></script> 
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+  background-color: #443;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #999;
+  box-shadow: 0 40px 100px #000;
+  color: #fff;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color:gold; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, -1px -1px 1px #000, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: lightgreen;
+  }
+[type=file] {
+  width: calc(100% - 200px);
+  margin: 10px 0;
+}
+div#fileInfo {
+  margin: 10px auto;
+  width: 100%;
+  height: 145px;
+  background-color: #444;
+  font: normal 14px Arial;
+  overflow: auto;
+  padding: 0;
+}
+ul { list-style: none; padding: 10px; margin: 0;}
+ul li b { display: inline-block; width: 105px; font-weight: normal}
+img#imgPrev {
+  max-width: 100%;
+  min-height: 20px;
+  border: 15px solid #fff;
+  margin: 10px auto;
+  display: block;
+  background: url('data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoKAAoAAIAOJaQAAudlk13mAAD+//4Kn9WRnOaxX4tuiRSEve45zt1EowEOBfNgalwAAA==');  
+}
+
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Get Detailed File Information of Uploaded Image</h1>
+<h2>get file name, size and width, height, extension, type of uploaded image</h2> 
+Select your image here:<input type=file id=fileInput  />
+<div id=fileInfo></div>
+<img src=https://raw.githubusercontent.com/lambedigdoyo/image/main/src/images/frog-400x260.jpg id=imgPrev />
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+
+<script>
+var fileInput = document.getElementById('fileInput');
+var fName, fExtension, fSize, fType, lastModifiedDate;
+fileInput.onchange = (event) => {
+  var file = event.target.files[0];
+  fName = file.name; 
+  fSize = Math.round(file.size / 1024) + ' KByte';
+  fType = file.type;
+  fExtension = fName.replace(/^.*\./, ''); //  
+  getInfo(file);
+}
+
+function getInfo(file) {
+  var blobURL = URL.createObjectURL(file);
+  document.getElementById('imgPrev').src = blobURL;
+  var fR = new FileReader();
+  fR.onload = function(e) {
+    var img = new Image();
+    img.src = e.target.result;
+    img.onload = function() {
+      var wd = this.width;
+      var hg = this.height;
+      lastModifiedDate = new Date(file.lastModified);
+      document.getElementById('fileInfo').innerHTML =
+        '<ul><li><b>Name</b>: ' + fName + '</li>' +
+        '<li><b>File Extension</b>: ' + fExtension + '</li>' +
+        '<li><b>Size</b>: ' + fSize + '</li>' +
+        '<li><b>Width x Height</b>: ' + wd + ' x ' + hg + ' (px)</li>' +
+        '<li><b>Type</b>: ' + fType + '</li>' +
+        '<li><b>Last Modified</b>: ' + lastModifiedDate + '</li></ul>';
+    }
+  };
+  fR.readAsDataURL(file);
+}
+</script>
+
+<script src='../src/js/grPelangi-html-viewer.js'></script> 
+
+</body>
+</html>
