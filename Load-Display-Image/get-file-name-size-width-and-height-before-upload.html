@@ -103,7 +103,7 @@ loadFile.addEventListener('change', (e) => {
   var file = e.target.files[0];
   var blobURL = URL.createObjectURL(file);
   var fName = 'file name: ' + file.name;
-  fileExtension = fName.replace(/^.*\./, ''); alert(fileExtension)
+  fileExtension = fName.replace(/^.*\./, ''); 
   var fSize = 'file size: ' + (file.size/1024).toFixed(2);
   document.getElementById('imgPrev').src = blobURL;
   URL.revokeObjectURL(blobURL);
@@ -111,7 +111,7 @@ loadFile.addEventListener('change', (e) => {
       pic.src = blobURL;
       pic.onload = ()=> { 
         var width = pic.width + 'px';
-        var height = pic.height + 'px';  alert(width + ' x ' + height);
+        var height = pic.height + 'px';
       document.getElementById('fileData').textContent = fName + '\n' + fSize + ' (kByte)\ndimension: ' + width + ' x ' + height;
   }
 });
