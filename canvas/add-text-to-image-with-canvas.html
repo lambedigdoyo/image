@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Add Text to Image with Canvas</title>
+
+<script src='../src/js/grPelangi-auto2.js'></script> 
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+  background-color: #443;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #999;
+  box-shadow: 0 40px 100px #000;
+  color: #fff;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+#canvasBox {
+  width: 100%;
+  heeight: auto;
+  text-align: center;
+}
+#canvasBox canvas {
+  max-width: 100%;
+}
+a, a:link { cursor: pointer; }
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Add Text to Image with Canvas</h1>
+
+Paste image link here: <input type=text id=imgLink value="https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR-city-night-1.jpg" style='width: calc(100% - 200px); margin: 10px 0 0' />
+Edit Text : <input type=text id=inputText value="Gubhug Reyot, Lambedigdoyo" style='width: calc(50% - 50px); margin: 10px 0' />
+Change Font: <input type=text id=xFont value="78px Arial" style='width: 100px; text-align: center; margin: 10px 0'/>
+<div id=canvasBox><canvas id=canvas></canvas></div>
+<a id="aImg">
+<h2 align=center onclick='downloadimage()'>Download Image</h2>
+</a>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script>
+var imgLink = document.getElementById('imgLink');
+var inputText = document.getElementById('inputText');
+var canvas = document.getElementById('canvas');
+var xFont = document.getElementById('xFont');
+function addText() {
+  var url = imgLink.value; 
+  var text = inputText.value;
+  var canvas = document.getElementById("canvas");
+  var context = canvas.getContext("2d");
+  var img = new Image();
+  img.src = url;
+  img.crossOrigin = 'anonymous';  
+  img.onload =  ()=> {
+    canvas.width = img.width;
+    canvas.height = img.height; 
+    context.drawImage(img, 0, 0, canvas.width, canvas.height);
+    context.fillStyle = "#f0f";
+    context.font = xFont.value;
+    context.lineWidth = 7;      
+    context.strokeStyle = "yellow";
+    context.strokeText(text, 130, 160);        
+    context.fillText(text, 130, 160);
+  };
+}
+function downloadimage() {
+var aImg = document.getElementById("aImg");
+var imgToDownload = canvas.toDataURL("image/jpeg").replace('image/jpeg', 'image/octet-stream');
+    aImg.setAttribute('href', imgToDownload);
+    aImg.setAttribute('download', 'newImage.jpeg'); 
+}
+imgLink.oninput = addText;
+inputText.oninput = addText;
+xFont.oninput = addText;
+addText();
+
+</script>
+
+<script src='../src/js/grPelangi-html-viewer.js'></script> 
+
+</body>
+</html>
