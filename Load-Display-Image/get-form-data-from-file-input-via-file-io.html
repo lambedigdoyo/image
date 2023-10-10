@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>get Form Data via file.io</title>
+
+<script src=../src/js/grPelangi-auto.js></script> 
+  
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 17vw;
+  margin: 0;
+  background-color: #223;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 66vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+pre#dataBox {
+  width: 100%;
+  padding: 8px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+ }
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>get Form Data from File Input - file.io</h1>
+
+Select your file: <input type="file" id="fileInput" style='width: calc(100% - 150px); margin: 20px 0'/>
+
+<pre id=dataBox></pre>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+  
+</div>
+
+<script>
+var dc = document, $ = (id)=> { return dc.querySelector(id); }
+
+var fileInput = document.querySelector("#fileInput");
+
+var uploadFile = file => {
+  document.getElementById('dataBox').innerHTML = `<h1 align=center>Loading...</h1>`;
+  var VIA = "https://file.io";
+  var xhr = new XMLHttpRequest();
+  var fileData = new FormData();
+
+  xhr.open("POST", VIA, true);
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      console.log(xhr.responseText);
+      document.getElementById('dataBox').textContent = xhr.responseText;
+    }
+  };
+  fileData.append("file", file);
+  xhr.send(fileData);
+};
+
+fileInput.addEventListener("change", event => {
+  var files = event.target.files;
+  uploadFile(files[0]);
+});
+</script>
+
+<script src=../src/js/grPelangi-html-viewer.js'></script>
+  
+</body>
+</html>
