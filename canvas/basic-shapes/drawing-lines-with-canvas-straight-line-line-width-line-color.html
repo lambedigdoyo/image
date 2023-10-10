@@ -34,6 +34,21 @@ body {
   box-shadow: 0 40px 100px #000;
   color: #fff;
   }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 200px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+textarea, input, button {
+  outline: none!important;
+}
 h1, h2 {
   margin: 10px auto 0;
   text-align: center;
@@ -58,15 +73,6 @@ canvas {
   height: 150px;
   background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
 }
-button {
-  display: block;
-  margin: 10px auto;
-  text-align: center;
-  font: normal 22px Arial;
-}
-button:hover, a:hover, a:link:hover {
-  cursor: pointer;
-}
 </style>
 
 </head>
@@ -79,6 +85,34 @@ button:hover, a:hover, a:link:hover {
 
 <canvas id='cvs' width='200' height='150'>Your browser does not support Canvas.</canvas>
 
+<textarea id="code1" spellcheck=false wrap=logical><canvas id='cvs' width='200' height='150'>Your browser does not support Canvas.</canvas>
+
+<script>
+var canvas = document.getElementById("cvs");
+var ct = canvas.getContext("2d");
+// line-1 (blue)
+// start-drawing-1
+ct.beginPath();
+// line-color
+ct.strokeStyle = "blue";
+// line-width
+ct.lineWidth = 10;
+// start point (x1,y1)
+ct.moveTo(50, 40);
+// end point (x2,y2)
+ct.lineTo(150,40);
+//draw (x1,y1) to (x2,y2)
+ct.stroke(); 
+
+// line-2 (red) - start-drawing
+ct.beginPath();
+ct.strokeStyle = "red";
+ct.lineWidth = 10;
+ct.moveTo(60, 130);
+ct.lineTo(148, 37);
+ct.stroke();
+</script></textarea>
+  
 <?pelangi lang=html linenums=true?>
 <pre class="grpelangi" id="gr"></pre>
 
