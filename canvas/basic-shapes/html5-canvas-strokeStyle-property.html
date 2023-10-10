@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HTML5 Canvas - strokeStyle Property</title>
+  
+<script src='../../../../lib/main/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+  background-color: #443;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: rgba(255,255,250,0.9);
+  box-shadow: 0 40px 100px #000;
+  color: #fff;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: green; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+canvas {
+  display: block; 
+  margin: 10px auto; 
+  border: 1px solid #666;
+  width: 200px;
+  height: 150px;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Canvas: The strokeStyle Property</h1>
+<h2>Drawing Straight Lines - HTML5 Canvas</h2>
+
+<canvas id='cvs' width='200' height='150'>Your browser does not support Canvas.</canvas>
+
+<pre class=grpelangi style='padding: 10px 20px'>&lt;canvas id='cvs' width='200' height='150'&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+var canvas = document.getElementById("cvs");
+var ct = canvas.getContext("2d");
+ct.beginPath(); // start-drawing: new Path
+ct.moveTo(190, 10); // start point (x1, y1)
+ct.lineTo(10, 140); // end point (x2,y2)
+ct.lineWidth = 10; // defines the line width to use
+ct.strokeStyle = 'blue'; // defines the style to use
+ct.stroke(); //draw (x1, y1) to (x2, y2)
+&lt;/script&gt;</pre>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script>
+var canvas = document.getElementById("cvs");
+var ct = canvas.getContext("2d");
+ct.beginPath();
+ct.moveTo(190, 10);
+ct.lineTo(10, 140);
+ct.lineWidth = 10;
+ct.strokeStyle = 'blue'; // defines the style to use
+ct.stroke(); 
+</script>
+
+<script src='../../../../lib/main/js/grPelangi-html-viewer.js'></script> 
+
+</body>
+</html>
