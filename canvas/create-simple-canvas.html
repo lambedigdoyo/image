@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Simple Canvas</title>
+
+<script src='../src/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+  background-color: #443;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: rgba(255,255,250,0.9);
+  box-shadow: 0 40px 100px #000;
+  color: #fff;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: green; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+canvas {
+  display: block; 
+  margin: 10px auto; 
+  border: 1px solid #666;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+}
+</style>
+
+<script>
+function autoload() {
+var canvas = document.getElementById("canvas");
+if (canvas.getContext) {
+  var ctx = canvas.getContext("2d");
+//  ctx.textBaseline = "top";
+
+var ctx1 = canvas.getContext("2d");
+ctx.beginPath();
+ctx.lineWidth = 4.0;
+ctx.rect(70, 180, 100, 100);
+ctx.strokeRect(70, 180, 100, 100);
+ctx.fillStyle = 'orange';
+ctx.strokeStyle = 'blue';
+ctx.font="42px Arial";
+ctx.strokeText("Gubhug Reyot", 160,70);
+ctx.fillText("Gubhug Reyot", 160, 70);
+ctx.fill();
+ctx.stroke();
+
+ctx.beginPath();
+ctx.lineWidth = 8.0;
+ctx.rect(430, 180, 100, 100);
+ctx.strokeRect(430, 180, 100, 100);
+ctx.fillStyle = 'yellow';
+ctx.strokeStyle = 'green';
+ctx.fill();
+ctx.stroke();
+
+ctx.beginPath();
+ctx.lineWidth = 3.0;
+ctx.fillStyle = 'black';
+ctx.strokeStyle = 'yellow';
+ctx.strokeText("Lambedigdoyo", 160,120);
+ctx.fillText("Lambedigdoyo", 160, 120);
+ctx.fill();
+ctx.stroke();
+
+ctx.arc(300, 235, 70, 0, 2 * Math.PI);
+ctx.fillStyle = 'green';
+ctx.lineWidth = 15;
+ctx.strokeStyle = 'red';
+ctx.fill();
+ctx.stroke();
+
+ctx.beginPath();
+ctx.rect(125, 350, 350, 100);
+ctx.fillStyle = "lightgreen";
+ctx.lineWidth = 5.0;
+ctx.strokeStyle = 'darkgreen';
+ctx.fill();
+ctx.stroke();
+
+}
+}
+</script>
+
+</head>
+<body onload="autoload();">
+
+<div class='container'>
+  <h1>Create Simple Canvas</h1>
+  <canvas id="canvas" width='600' height='480'></canvas><br>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script src='../src/js/grPelangi-html-viewer.js'></script> 
+
+</body>
+</html>
