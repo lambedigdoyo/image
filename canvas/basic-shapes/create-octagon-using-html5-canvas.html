@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create Octagon - HTML5 Canvas Shapes</title>
+
+<script src='../../../../lib/main/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+  background-color: #443;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: rgba(255,255,250,0.9);
+  box-shadow: 0 40px 100px #000;
+  color: #fff;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: green; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+canvas {
+  display: block; 
+  margin: 10px auto; 
+  border: 1px solid #666;
+  width: 200px;
+  height: 150px;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Drawing Octagon</h1>
+<h2>Canvas Shapes- Canvas Line Drawing</h2>
+
+<canvas id='cvs8' width='200' height='150'></canvas>
+
+<pre class=grpelangi style='padding: 10px 20px'>&lt;canvas id='cvs1' width='200' height='150'&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+var canvas = document.getElementById("cvs8");
+var ct8 = canvas.getContext("2d");
+ct8.strokeStyle = "green"; //color of the line
+ct8.moveTo(70, 10); //starting point of line1 (x1,y1)
+ct8.lineTo(130, 10); // end point of line1 (x2,y2)
+ct8.lineTo(165, 50); // end point of line2 (x3,y3)
+ct8.lineTo(165, 105); // end point of line3 (x4,y4)
+ct8.lineTo(130, 140); // end point of line4 (x5,y5)
+ct8.lineTo(70, 140); // end point of line5 (x6,y6) 
+ct8.lineTo(35, 105); // end point of line6 (x7,y7)
+ct8.lineTo(35, 50); // end point of line7 (x8,y8)
+ct8.lineTo(70, 10); // end point of line8 (x1,y1) -  back to start
+ct8.lineWidth = 3;
+ct8.stroke();
+&lt;/script&gt;</pre>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script>
+var canvas = document.getElementById("cvs8");
+var ct8 = canvas.getContext("2d");
+ct8.strokeStyle = "green"; //color of the line
+ct8.moveTo(70, 10); //starting point of line1 (x1,y1)
+ct8.lineTo(130, 10); // end point of line1 (x2,y2)
+ct8.lineTo(165, 50); // end point of line2 (x3,y3)
+ct8.lineTo(165, 105); // end point of line3 (x4,y4)
+ct8.lineTo(130, 140); // end point of line4 (x5,y5)
+ct8.lineTo(70, 140); // end point of line5 (x6,y6) 
+ct8.lineTo(35, 105); // end point of line6 (x7,y7)
+ct8.lineTo(35, 50); // end point of line7 (x8,y8)
+ct8.lineTo(70, 10);// end point of line8 (x1,y1) -  back to start
+ct8.lineWidth = 3;
+ct8.stroke();
+</script>
+
+<script src='../../../../lib/main/js/grPelangi-html-viewer.js'></script> 
+
+</body>
+</html>
