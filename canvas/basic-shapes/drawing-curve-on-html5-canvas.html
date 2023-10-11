@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drawing Curve - HTML5 Canvas</title>
+
+<script src='../../../../lib/main/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+  background-color: #443;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: rgba(255,255,250,0.9);
+  box-shadow: 0 40px 100px #000;
+  color: #fff;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: green; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+canvas {
+  display: block; 
+  margin: 10px auto; 
+  border: 1px solid #666;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>HTML5 Canvas Curve</h1>
+<h2>Drawing Curve on HTML5 Canvas (The arch() Method)</h2>
+
+<canvas id='canvasCurve' width='360' height='200'></canvas>
+
+<pre class=grpelangi style='padding: 10px 20px'>&lt;canvas id='canvasCurve' width='400' height='200'&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+/* The upper half circle starts at 3.14 (1*Math.PI), because the circle is 2*Math.PI (2 * 3.14) */
+var canvas = document.getElementById('canvasCurve');
+var cur = canvas.getContext('2d');
+// Math.PI = 3.14, cirlcle = 2 * Math.PI 
+// cur.arc(190, 100, 90, 0, Math.PI); same with 
+// cur.arc(190, 100, 90, 0, 1 * Math.PI);
+
+cur.lineWidth = 3; // curve-1
+cur.arc(50, 50, 40, 0, Math.PI); 
+cur.stroke();
+
+cur.beginPath(); // curve-2
+cur.arc(315, 50, 40, 1.57, 1.5 * Math.PI);
+cur.stroke();
+
+cur.beginPath(); // curve-3
+cur.arc(310, 175, 40, 3.14, 2 * Math.PI);
+cur.stroke();
+
+cur.beginPath(); // curve-4
+cur.arc(50, 150, 40, 4.71, 0.5 * Math.PI);
+cur.stroke();
+
+cur.beginPath(); // curve-5 (blue)
+cur.lineWidth = 8;
+cur.fillStyle = 'yellow';
+cur.strokeStyle = 'blue';
+cur.arc(180, 100, 90, 3.14, 2 * Math.PI);
+cur.fill();
+cur.stroke();
+
+cur.beginPath(); //curve-6 (red)
+cur.lineWidth = 4;
+cur.fillStyle = 'pink';
+cur.strokeStyle = 'red';
+cur.arc(190, 100, 90, 0, Math.PI); // same as with cur.arc(190, 100, 90, 0, Math.PI);
+cur.fill();
+cur.stroke();
+&lt;/script&gt;</pre>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script>
+/* The upper half circle starts at 3.14 (1*Math.PI), because the circle is 2*Math.PI (2 * 3.14) */
+var canvas = document.getElementById('canvasCurve');
+var cur = canvas.getContext('2d');
+// Math.PI = 3.14, cirlcle = 2 * Math.PI 
+// cur.arc(190, 100, 90, 0, Math.PI); same with 
+// cur.arc(190, 100, 90, 0, 1 * Math.PI);
+
+cur.lineWidth = 3; // curve-1
+cur.arc(50, 50, 40, 0, Math.PI); 
+cur.stroke();
+
+cur.beginPath(); // curve-2
+cur.arc(315, 50, 40, 1.57, 1.5 * Math.PI);
+cur.stroke();
+
+cur.beginPath(); // curve-3
+cur.arc(310, 175, 40, 3.14, 2 * Math.PI);
+cur.stroke();
+
+cur.beginPath(); // curve-4
+cur.arc(50, 150, 40, 4.71, 0.5 * Math.PI);
+cur.stroke();
+
+cur.beginPath(); // curve-5 (blue)
+cur.lineWidth = 8;
+cur.fillStyle = 'yellow';
+cur.strokeStyle = 'blue';
+cur.arc(180, 100, 90, 3.14, 2 * Math.PI);
+cur.fill();
+cur.stroke();
+
+cur.beginPath(); //curve-6 (red)
+cur.lineWidth = 4;
+cur.fillStyle = 'pink';
+cur.strokeStyle = 'red';
+cur.arc(190, 100, 90, 0, Math.PI); // same as with cur.arc(190, 100, 90, 0, Math.PI);
+cur.fill();
+cur.stroke();  
+</script>
+
+<script src='../../../../lib/main/js/grPelangi-html-viewer.js'></script> 
+
+</body>
+</html>
