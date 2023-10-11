@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drawing Text - HTML5 Canvas</title>
+
+<script src='../../../../lib/main/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+  background-color: #443;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: rgba(255,255,250,0.9);
+  box-shadow: 0 40px 100px #000;
+  color: #fff;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: green; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+canvas {
+  display: block; 
+  margin: 10px auto; 
+  border: 1px solid #666;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>HTML5 Canvas Text</h1>
+<h2>Drawing Text on the Canvas</h2>
+
+<canvas id='canvasText' width='360' height='200'></canvas>
+
+<pre class=grpelangi style='padding: 10px 20px'>&lt;canvas id='canvasText' width='400' height='200'&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+var canvas = document.getElementById("canvasText");
+var ct = canvas.getContext("2d");
+
+ct.font = "2.5em Arial"; // font-size, font-family
+ct.fillText("Gubhug Reyot", 50, 50); // ("text", x, y) 
+
+ct.font = '45px Arial';
+ct.fillStyle= 'gold';
+ct.strokeStyle = 'red';
+ct.lineWidth = 1; 
+ct.fillText('Lambedigdoyo', 40, 90);
+ct.strokeText('Lambedigdoyo', 40, 90);
+
+ct.font = 'bold 65px Arial'; // font-weight, font-size , font-family
+ct.lineWidth = 3; 
+ct.textAlign = 'center'; // center text position (horizontal: ct.textAlign = 'center' - canvas.width/2)
+ct.strokeText('Text', canvas.width/2, canvas.height/1.3); // canvas.height/1.3 (vertical position)
+&lt;/script&gt;</pre>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script>
+var canvas = document.getElementById("canvasText");
+var ct = canvas.getContext("2d");
+
+ct.font = "2.5em Arial"; // font-size, font-family
+ct.fillText("Gubhug Reyot", 50, 50); // ("text", x, y) 
+
+ct.font = '45px Arial';
+ct.fillStyle= 'gold';
+ct.strokeStyle = 'red';
+ct.lineWidth = 1; 
+ct.fillText('Lambedigdoyo', 40, 90);
+ct.strokeText('Lambedigdoyo', 40, 90);
+// center text position (horizontal: ct.textAlign = 'center' - canvas.width/2)
+ct.font = 'bold 65px Arial'; // font-weight, font-size , font-family
+ct.lineWidth = 3; 
+ct.textAlign = 'center'; // 
+ct.strokeText('Text', canvas.width/2, canvas.height/1.3); // canvas.height/1.3 (vertical position)
+</script>
+
+<script src='../../../../lib/main/js/grPelangi-html-viewer.js'></script> 
+
+</body>
+</html>
