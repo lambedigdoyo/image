@@ -92,6 +92,34 @@ Paste Image Link here:
   <textarea id=code spellcheck=false wrap=logical placeholder="Text here...!!!"></textarea>
   <div class='imageBox'><img id='base64Image' /></div>
 
+<pre class='grpelangi linenums' style='padding: 10px'>&lt;script&gt;
+var imageLink = document.getElementById('imageLink');
+var inputScale = document.getElementById('inputScale');
+
+function imageResize() {
+  var iS = inputScale.value;
+  var img = new Image(),
+    canvas = document.createElement("canvas"),
+    ctx = canvas.getContext("2d");
+  document.body.appendChild(canvas);
+  img.onload = () => {
+    let width = Math.floor(img.naturalWidth * iS),
+      height = Math.floor(img.naturalHeight * iS);
+    canvas.width = width;
+    canvas.height = height;
+    ctx.drawImage(img, 0, 0, width, height);
+    var canvasData = canvas.toDataURL('image/jpeg');
+    document.getElementById('code').value = canvasData;
+    document.getElementById('base64Image').src = canvasData;
+  };
+  img.setAttribute('crossOrigin', 'anonymous');
+  img.src = imageLink.value;
+  document.body.removeChild(canvas);
+}
+inputScale.oninput = imageResize;
+imageResize();
+&lt;/script&gt;</pre>
+  
 <?pelangi lang=html linenums=true?>
 <pre class="grpelangi" id="gr"></pre>
   
