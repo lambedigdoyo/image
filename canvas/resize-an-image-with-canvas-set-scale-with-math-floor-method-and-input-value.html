@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Resizing Image with Canvas: Set the Scale with Math.floor Method - Input Value</title>
+  
+ ​ <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+  }
+.imageBox {
+  width: 100%;
+  min-height: 30px;
+  text-align: center;
+  padding: 4px;
+  font-size: 0;
+  background-color: #555;
+  }
+.imageBox img {
+  max-width: 100%;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  }  
+</style>
+
+</head>
+<body>
+
+<div class='container'>
+  <h1>Resizing an Image in HTML5 Canvas</h1>
+  <h2>Use canvas to change the size of an image and set the scale with Math.floor() Method - input values.</h2>
+
+Paste Image Link here: 
+  <input type='text' id='imageLink' value='https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/merntari-pagi.jpg' style='width: calc(100% - 250px); margin: 10px 2px' />
+
+  <input type='number' id='inputScale' min='0.05' max='1.0' step='0.05' value='1.0' style='width: 50px; margin: 10px 2px' />
+
+  <textarea id=code spellcheck=false wrap=logical placeholder="Text here...!!!"></textarea>
+  <div class='imageBox'><img id='base64Image' /></div>
+
+</div>
+
+
+<script>
+var imageLink = document.getElementById('imageLink');
+var inputScale = document.getElementById('inputScale');
+
+function imageResize() {
+  var iS = inputScale.value;
+  var img = new Image(),
+    canvas = document.createElement("canvas"),
+    ctx = canvas.getContext("2d");
+  document.body.appendChild(canvas);
+  img.onload = () => {
+    let width = Math.floor(img.naturalWidth * iS),
+      height = Math.floor(img.naturalHeight * iS);
+    canvas.width = width;
+    canvas.height = height;
+    ctx.drawImage(img, 0, 0, width, height);
+    var canvasData = canvas.toDataURL('image/jpeg');
+    document.getElementById('code').value = canvasData;
+    document.getElementById('base64Image').src = canvasData;
+  };
+  img.setAttribute('crossOrigin', 'anonymous');
+  img.src = imageLink.value;
+  document.body.removeChild(canvas);
+}
+inputScale.oninput = imageResize;
+imageResize();
+</script>
+
+</body>
+</html>  
