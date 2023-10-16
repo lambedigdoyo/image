@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Crop an Image using Canvas</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 5vw;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+::-webkit-scrollbar {width: 8px; height: 8px}
+::-webkit-scrollbar-track-piece {background-color:#777;}
+::-webkit-scrollbar-thumb {border-radius: 6px;-webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.8); background-color: #ccc;border: 1px solid #eee;}
+::-webkit-scrollbar-thumb:hover {background-color: #6b7b88}
+::-webkit-scrollbar-track-piece {background-color:#444;}
+
+.container, textarea {
+  /* For Firefox */
+  overflow-y: scroll; 
+  scrollbar-color: #008de4 #0d3b97;
+  scrollbar-width: thin;  
+  scrollbar-color: #000 #888;
+  }
+.container {
+  width: 90vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input {
+  text-align: center;
+}
+.setBox {
+  width: 100%;
+  height: 32px;
+  display: grid;
+  padding: 3px;
+  grid-template-columns: calc(10% - 4px)  calc(10% - 4px) calc(10% - 4px) calc(10% - 4px) calc(35% - 4px) calc(17% - 4px) calc(8% - 4px);
+  gap : 4px;
+  border: 1px solid #555;
+  background-color: lightgreen;
+  margin: 5px auto 0;
+}
+.setBox > input {
+  display: inline-block;
+  width: 100%;
+  margin: 0;
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h2>Crop an Image using Canvas</h2>
+
+Paste image link here: <input type='text' id='imageLink' value='https://source.unsplash.com/random/200x300?woman,dance' style='width:calc(100% - 185px)'/>
+<div class='setBox'>
+<input type='number' id='setX' value='0' />
+<input type='number' id='setY' value='0' />
+<input type='number' id='setWd' value='200' />
+<input type='number' id='setHg' value='300' />
+<input type=text id=oriDim />
+<button id='download'>Download</button>
+<input type='number' id='quality' min='0.1' max='1.0' step='0.1' value='0.5' />
+
+</div>
+
+<div style='width: 100%; text-align: center; margin: 10px auto; background-color: #333; padding: 4px 0; font-size: 0;'><img id='croppedImage' style='border: 1px solid #888'/></div>
+<div id='canvasBox' style='display: none'></div>
+
+<textarea id="code" spellcheck=false wrap=logical placeholder="write text here..."></textarea>
+
+</div>
+
+
+<script>
+var imageLink = document.getElementById('imageLink');
+var setX = document.getElementById('setX');
+var setY = document.getElementById('setY');
+var setWd = document.getElementById('setWd');
+var setHg = document.getElementById('setHg');
+var quality = document.getElementById('quality');
+var download = document.getElementById('download');
+var canvasBox = document.getElementById('canvasBox');
+var croppedImage = document.getElementById('croppedImage');
+
+function cropImage() {
+  canvasBox.innerHTML = '';
+  var path = imageLink.value;
+  var xPos = setX.value;
+  var yPos = setY.value;
+  var imgWidth = setWd.value;
+  var imgHeight = setHg.value;
+  var img = new Image();
+  img.setAttribute('crossOrigin', 'anonymous');
+  img.src = path;
+  img.addEventListener('load', function () {
+    var cvs = document.createElement('canvas');
+    cvs.setAttribute('id', 'canvas');
+    canvasBox.appendChild(cvs);
+    var ctx = cvs.getContext('2d');
+    var oriWidth = img.width;
+    var oriHeight = img.height;
+    document.getElementById('oriDim').value = 'Image: ' + oriWidth + ' x ' + oriHeight + ' (px)';
+    cvs.width = imgWidth;
+    cvs.height = imgHeight;
+    ctx.drawImage(img, xPos, yPos, imgWidth, imgHeight, 0, 0, imgWidth, imgHeight);
+    var dataCVS = cvs.toDataURL('image/jpeg', +quality.value);
+    croppedImage.src = dataCVS;
+    document.getElementById('code').value = dataCVS;
+  });
+  canvasBox.removeChild(cvs);
+}
+download.onclick = function () {
+  var dl = document.createElement('a');
+  dl.download = 'cropped.jpg';
+  dl.href = croppedImage.src;
+  dl.click();
+}
+quality.oninput = cropImage;
+imageLink.oninput = cropImage;
+setX.oninput = cropImage;
+setY.oninput = cropImage;
+setWd.oninput = cropImage;
+setHg.oninput = cropImage;
+
+cropImage();
+</script>
+
+</body>
+</html>
