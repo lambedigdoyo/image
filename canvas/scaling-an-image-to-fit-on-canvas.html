@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scaling an Image to Fit on Canvas</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 17vw;
+  margin: 0;
+  background-color: #223;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 66vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+.canvasBox {
+  width: 100%;
+  min-height: 30px;
+  margin: 10px auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 0;
+  background-color: rgba(0,0,0,0.4);
+  border: 1px solid #000;
+}
+.canvasBox canvas {
+  border: 1px solid #fff;
+  background-color: rgba(55,150,250,0.8)
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Scaling an Image to Fit on Canvas</h1> 
+
+Paste Image Link here: <input type=text id=imageLink value='https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/sicantik.jpg' style='margin: 10px 0 0; width: calc(100% - 200px)' />
+Canvas (width): <input type=number id=cW value=300 step='5' style='width: 65px; margin: 10px 5px' />
+Canvas (height); <input type=number id=cH value=400 step='5' style='width: 65px; margin: 5px' />
+
+<div class='canvasBox'>
+<canvas id='canvas' style='backgound-color: red'></canvas>
+</div>
+
+<textarea id="code" spellcheck=false wrap=logical style='height: 550px'></textarea>
+
+</div>
+
+
+<script>
+// https://source.unsplash.com/random/200x300?girl
+var imageLink = document.getElementById('imageLink');
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var cW = document.getElementById('cW')
+var cH = document.getElementById('cH')
+function toFit() {
+var cw = cW.value;
+var ch = cH.value;
+canvas.setAttribute('width', cw);
+canvas.setAttribute('height', ch);
+
+var img = new Image();
+//  img.setAttribute('crossOrigin', 'anonymous'); 
+  img.src = imageLink.value;
+  img.onload = function(){ 
+    var iw = img.width;
+    var ih = img.height;     
+  // get the scale
+  var scale = Math.min(cw/iw, ch/ih);
+  // get the top left position of the image
+  var x = (cw/2) - (iw/2) * scale;
+  var y = (ch/2) - (ih/2) * scale;
+  ctx.drawImage(img, x, y, iw * scale, ih * scale); 
+  }
+}
+cW.oninput = toFit;
+cH.oninput = toFit;
+imageLink.oninput = toFit;
+toFit();
+</script>
+
+<script>
+window.onload = function() {
+  document.getElementById("code").innerHTML = "<!DOCTYPE html>\n<html>\n" + document.documentElement.innerHTML + "\n<html>"
+};
+</script>
+
+</body>
+</html>
