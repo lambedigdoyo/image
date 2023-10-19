@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Easy Ways to Crop Images with Canvas</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 10vw 0;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 80vw;
+  height: calc(100% - 35px);
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+input, textarea, iframe {
+  outline: none!important;
+  }
+#dragEl:hover {
+  cursor: move;
+  }
+#prevImageDIV {
+  width: 100px;
+  position: fixed;
+  bottom: 33px;
+  left: 0;
+  z-index: 1;
+  transition: ease-in 0.2s;  
+  }
+#prevImageDIV:hover{
+  width: 300px;
+  }
+.xImageDIV {
+  width: 100%;
+  margin: 10px auto;
+  padding: 5px;
+  background-color: rgba(40,0,40,0.9);
+  border: 1px solid #000;
+  text-align: center;
+  overflow: auto;
+  font-size: 0;
+  }
+.xImageDIV img {
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  border: 1px solid #eee;
+  }
+#prevImageDIV img {
+  max-width: 100%;
+  }
+[type=number] {
+  width: 65px;
+  }
+</style>
+
+</head>
+<body>
+
+<div class=container id=dragArea>
+
+  <h1>Easy Ways to Crop Images with Canvas</h1>
+  <div style='width: 100%; height: 30px; background-color: #444; padding: 4px 2px; color: #fff; position: fixed; bottom: 0; left: 0'>
+    Paste Image Link here: 
+    <input type=text id=imageLink value='https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR-city-night-1.jpg' style='width: calc(100% - 480px)'/>
+    <input type=number id=xPos step=10 value=100 />
+    <input type=number id=yPos step=10 value=100 />
+    <input type=number id=picWidth step=10 value=300 />
+    <input type=number id=picHeight step=10 value=400 />
+  </div>
+  
+  <div id=prevImageDIV><img id=imgPrev /></div>
+  <div class=xImageDIV><image id=xImage /></div>
+
+</div>
+
+<script>
+var imageLink = document.getElementById('imageLink'); 
+var xPos = document.getElementById('xPos');
+var yPos = document.getElementById('yPos');
+var cv = document.createElement("canvas");
+var ctx = cv.getContext("2d");
+
+function cropImage(image, croppingPosition) {
+  var cropPos = croppingPosition;  
+  cv.width = Math.floor(cropPos.width);
+  cv.height = Math.floor(cropPos.height);  
+  ctx.drawImage(image, -Math.floor(cropPos.x), -Math.floor(cropPos.y));
+  var image = document.getElementById('xImage');
+  image.src = cv.toDataURL(); 
+  return image;
+}
+
+function cropPic() {
+  var image = new Image();
+  image.setAttribute('crossOrigin', 'anonymous');
+  image.src = imageLink.value;
+  image.onload = function () {
+    cropImage(this, {x: xPos.value, y: yPos.value, width: picWidth.value, height: picHeight.value
+  });
+  document.getElementById('imgPrev').src = image.src;  
+  };
+}
+
+imageLink.oninput = cropPic;
+xPos.oninput = cropPic;
+yPos.oninput = cropPic;
+picWidth.oninput = cropPic;
+picHeight.oninput = cropPic;
+cropPic();
+</script>
+
+</body>
+</html>
