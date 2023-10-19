@@ -45,6 +45,18 @@ h2 {
   padding: 0;
   color: darkred;
   }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 530px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  } 
 input, textarea, iframe {
   outline: none!important;
   }
@@ -101,6 +113,7 @@ input, textarea, iframe {
   
   <div id=prevImageDIV><img id=imgPrev /></div>
   <div class=xImageDIV><image id=xImage /></div>
+  <textarea id="code" spellcheck=false wrap=logical placeholder="write text here..."></textarea>
 
 </div>
 
@@ -140,5 +153,11 @@ picHeight.oninput = cropPic;
 cropPic();
 </script>
 
+<script>
+window.onload = function() {
+  document.getElementById("code").innerHTML = "<!DOCTYPE html>\n<html>\n" + document.documentElement.innerHTML + "\n<html>"
+};
+</script>
+  
 </body>
 </html>
