@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Uploading, Resizing, Converting Extensions and Set the Quality of an Image</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 10vw 0;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  position: relative;
+  width: 80vw;
+  height: calc(100% - 60px);
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 24px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: red;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+.imageBox {
+  width: 100%;
+  min-height: 30px;
+  margin: 10px auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 0;
+  background-color: #888;
+  border: 1px solid #000;
+  position: relative;
+  }
+h3.title {
+  position: absolute;
+  bottom: 5px;
+  font-size: 15px;
+  font-weight: normal;
+  text-shadow: 1px 1px 1px #000;
+  left: 5px; 
+  color: gold;
+  z-index: 3;
+  margin: 0;
+  padding: 0;
+  }
+.imageBox img {
+  max-width: 100%;
+  text-align: center;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  }
+.gridBox {
+  display: grid;
+  width: 100%;
+  margin: 10px auto;
+  grid-gap: 5px;
+  grid-template-columns: calc(100% - 375px) 90px 65px 65px 65px 65px;
+  }
+.gridBox span {
+  width: 100%;
+  display: block;
+  text-align: center;
+  background-color: #555;
+  color: #fff;
+  padding: 3px 0;
+  overflow: hidden;
+  white-space: pre;
+  }
+.gridBox * {
+  background-color: #eeee;
+  border: 1px solid #555;
+  }
+.leftBox {
+  width: 9vw; 
+  height: 240px; 
+  background-color: #000;
+  position: fixed; 
+  left: 0.5vw; 
+  bottom: 0; 
+  color: #fff; 
+  border: 2px solid #fff;
+  font-family: Arial;
+  }
+.leftBox span.header {
+  background-color: #ccc; 
+  color: #000; 
+  font: bold 15px Arial;  
+  text-decoration: underline;
+}
+.leftBox span {
+  display: inline-block; 
+  width: 100%; 
+  white-space: pre; 
+  padding: 4px 0;
+  text-align: center; 
+  overflow: hidden; 
+  }
+.leftBox input {
+  width: 100%; 
+  text-align: center;
+  }
+input {
+  text-align: center;
+  }
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+  <h1>Uploading, Resizing, Converting Extensions and Set the Quality of an Image</h1>
+  <h2>Upload your image first and then change the width and height of the image.</h2>
+
+<div class=imageBox><img id=uploadedImage /></div>
+
+<div class=imageBox><img id=resizedImage /></div>
+<textarea id="code" spellcheck=false wrap=logical placeholder="write text here..."></textarea>
+
+
+
+  <div style='position: fixed; width: 80%; bottom: 0px; left: 10vw; height: 60px;'>
+    <div class=gridBox style='margin: 10px 0 0; height: 24px;'><span style='width: 250px; text-align: left; padding-left: 5px'>Upload your image!!!</span><span>Download</span><span>width</span><span title='Look at Height Calculation'>height</span><span>quality</span><span>Type</span>
+    </div>
+
+    <div class=gridBox style='margin: 2px 0 10px; height: 31px;'>
+      <input type=file id=upload onchange='loadResize()' accept="image/*" style='width: 250px' />
+      <button id='download' title='Click to download!'>Download</button>
+      <input type=number id=setWidth value=300 step=5 style='width: 65px; font-weight: bold; color: blue;' />
+      <input type=number id=setHeight value=300 step=5 style='width: 65px; font-weight: bold; color: red;' />
+      <input type=number id=quality value=0.6 min=0.05 max=1.0 step=0.05 style='width:65px' />
+      <select id=imageExt style='width: 65px'>
+        <option value=png>PNG</option>
+        <option value=jpeg selected>JPG</option>
+        <option value=webp>WEBP</option>
+      </select>
+    </div>
+  </div>
+
+  <div class=leftBox>
+    <span class=header>Image data:</span>
+    <span>width:</span>
+    <input type=text id=oWidth /><br>
+    <span>height:</span>
+    <input type=text id=oHeight />
+    <span>Calc (width)</span>
+    <input type=text id=calcWidth style='font-weight: bold; color: blue; cursor: pointer' onclick='setWidth.value=this.value; loadResize()' title='To change the width of the image you can click here!'/>
+    <span>Calc (height)</span>
+    <input type=text id=calcHeight style='font-weight: bold; color: red; cursor: pointer' onclick='setHeight.value=this.value; loadResize()' title='To change the height of the image you can click here!'/>
+  </div>
+
+
+</div>
+
+
+<script>
+var upload = document.getElementById("upload");
+var setWidth = document.getElementById("setWidth");
+var oWidth = document.getElementById("oWidth");
+var oHeight = document.getElementById("oHeight");
+var setHeight = document.getElementById("setHeight");
+var calcWidth = document.getElementById("calcWidth");
+var calcHeight = document.getElementById("calcHeight");
+var imageExt = document.getElementById('imageExt');
+var quality = document.getElementById('quality');
+var cv = document.createElement("canvas");
+var ctx = cv.getContext("2d");
+var code = document.getElementById("code");
+var uploadedImage = document.getElementById("uploadedImage");
+var resizedImage = document.getElementById("resizedImage");
+
+function loadResize() {
+  var file = upload.files[0];
+  if (file) {
+    var fR = new FileReader();
+    fR.onloadend = function (e) {       
+      var img = new Image();
+      img = uploadedImage;
+      img.src = e.target.result;
+
+      img.onload = ()=> {       
+
+        var maxWidth = setWidth.value;
+        var maxHeight = setHeight.value;
+        var width = img.width;
+        var height = img.height;//width > height && 
+        oWidth.value = img.width;
+        oHeight.value = img.height;
+        calcHeight.value = setWidth.value / img.width * img.height;
+        calcWidth.value = setHeight.value / img.height * img.width;
+        if (width > maxWidth) {
+          height *= maxWidth / width;
+          width = maxWidth;
+        }        
+        if (height > maxHeight) {
+          width *= maxHeight / height;
+          height = maxHeight;
+        }
+
+        cv.width = width;
+        cv.height = height;
+        var ctx = cv.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        var b64 = cv.toDataURL('image/'+ imageExt.value, + quality.value);
+        resizedImage.src = b64;
+        code.value = b64;
+      }
+    }
+    fR.readAsDataURL(file);
+  }
+}
+
+download.onclick = function () {
+  var dl = document.createElement('a');
+  dl.download = 'resized.'+imageExt.value;
+  dl.href = resizedImage.src;
+  dl.click();
+}
+
+setWidth.oninput = loadResize;
+setHeight.oninput = loadResize; 
+quality.oninput = loadResize;
+imageExt.onchange= loadResize;
+loadResize();  
+</script>
+
+</body>
+</html>
