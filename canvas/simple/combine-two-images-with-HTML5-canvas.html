@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Combine Two Images with HTML5 Canvas</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 14vw;
+  margin: 0;
+  background-color: #223;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 72vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+.canvasBox {
+  width: 100%;
+  min-height: 30px;
+  margin: 10px auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 0;
+  background-color: rgba(0,0,0,0.4);
+  border: 1px solid #000;
+}
+.canvasBox canvas {
+  max-width: 100%;
+  border: 1px solid #fff;
+  background-color: rgba(55,150,250,0.8)
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+  <h1>Combine Two Images with HTML5 Canvas</h1> 
+  <div class='canvasBox'>
+    <canvas id='canvas'></canvas>
+  </div>
+  <textarea id="code" spellcheck=false wrap=logical style='height: 550px'></textarea>
+
+</div>
+
+
+<script>
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+
+// Picture-1
+var pic01 = new Image();
+pic01.onload = jointImage;
+pic01.onerror=function(){alert(img1.src+' failed to load.');};
+pic01.src="https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/cium-dolpin.jpg";
+
+// Picture-2
+var pic02 = new Image();
+pic02.onload = jointImage;
+pic02.onerror=function(){alert(img2.src+' failed to load.');};
+pic02.src="https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR-cah-ndase.png";
+var imgCount=2;
+function jointImage(){
+canvas.width = pic01.naturalWidth;
+canvas.height = pic01.naturalHeight;
+    if(--imgCount>0){return;}
+    ctx.drawImage(pic01, 0, 0);
+    ctx.drawImage(pic02, 230, 25, 100, 100);
+}
+</script>
+
+<script>
+window.onload = function() {
+  document.getElementById("code").innerHTML = "<!DOCTYPE html>\n<html>\n" + document.documentElement.innerHTML + "\n<html>"
+};
+</script>
+
+</body>
+</html>
