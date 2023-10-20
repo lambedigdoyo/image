@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Javascript - Zoom-in zoom-out Images</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+  }
+button, input[type=button]:hover {
+ cursor: pointer;
+  }
+.zoominDIV, .zoomoutDIV {
+  margin: 10px auto;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  }
+.zoominDIV:before, .zoomoutDIV:before {
+  content: 'Click image to zoom in';
+  font: bold 22px Times;
+  position: absolute;
+  top: 10px;
+  left: 20px;
+  z-index: 99;
+  }
+.zoomoutDIV:before {
+  content: 'Click image to zoom out';
+  }
+.zoominDIV img, .zoomoutDIV img {
+  margin: 0 auto;
+  }
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Image Zoom-in Zoom-out</h1>
+<h2>Create Simple javascript: zoom-in zoom-out Images</h2>
+
+  <div class='zoominDIV'>
+  <img onclick="zoomIN()" alt='zoomin' id='imgToZoomIn' src="https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/merntari-pagi.jpg" style='padding: 5px; background-color: #fff; border: 2px solid #222; cursor: pointer; border-radius: 12px' />
+  </div>
+  <div class='zoomoutDIV'>
+<img id='zoImage' onclick="zoomOUT()" src="https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/merntari-pagi.jpg" style='padding: 5px; background-color: #fff; border: 2px solid #222; cursor: pointer; border-radius: 12px' />
+  </div>
+  <textarea id="code" spellcheck=false wrap=logical placeholder="write text here..."></textarea>
+  
+</div>
+
+<script>
+function zoomIN(){
+  var ziImage = document.getElementById("imgToZoomIn");
+  var ziWidth = ziImage.clientWidth;
+    if(ziWidth >= 3 * ziImage.naturalWidth - 50) {
+    alert("Image will back to normally!");   
+  }
+  if(ziWidth >= 3 * ziImage.naturalWidth){
+    alert("The image can no longer be enlarged!!"); 
+    ziImage.style.width = ziImage.naturalWidth+'px';
+  } else {
+    ziImage.style.width = (ziWidth + 100) + "px";
+  } 
+}
+
+function zoomOUT(){
+  var zoImage = document.getElementById("zoImage");
+  var zoWidth = zoImage.clientWidth;
+    if(zoWidth <= 50){
+      alert("The image can no longer be reduced!");
+      zoImage.style.width = zoImage.naturalWidth+'px'; 
+    } else {
+      zoImage.style.width = (zoWidth - 50) + "px";
+  }
+}
+</script>
+
+<script>
+window.onload = function() {
+  document.getElementById("code").innerHTML = "<!DOCTYPE html>\n<html>\n" + document.documentElement.innerHTML + "\n<html>"
+};
+</script>
+
+</body>
+</html>
