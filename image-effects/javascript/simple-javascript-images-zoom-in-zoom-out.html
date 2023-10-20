@@ -108,7 +108,7 @@ function zoomIN(){
   var ziImage = document.getElementById("imgToZoomIn");
   var ziWidth = ziImage.clientWidth;
     if(ziWidth >= 3 * ziImage.naturalWidth - 50) {
-    alert("Image will back to normally!");   
+    alert("The image will return to normal size!");   
   }
   if(ziWidth >= 3 * ziImage.naturalWidth){
     alert("The image can no longer be enlarged!!"); 
@@ -122,7 +122,7 @@ function zoomOUT(){
   var zoImage = document.getElementById("zoImage");
   var zoWidth = zoImage.clientWidth;
     if(zoWidth <= 50){
-      alert("The image can no longer be reduced!");
+      alert("The image will return to normal size!");
       zoImage.style.width = zoImage.naturalWidth+'px'; 
     } else {
       zoImage.style.width = (zoWidth - 50) + "px";
