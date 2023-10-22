@@ -91,6 +91,30 @@ img {
   display: block;
   margin: 10px auto;
 }
+#fan {
+  width: 225px;
+  height: 225px;
+  margin: 20px auto;
+  position: relative;
+  background: transparent url('../../../../lib/main/images/fan-2.png') center center no-repeat;
+  border-radius: 50%;
+}
+#fan:after {
+  content: "@";
+  position: absolute;
+  width: 48px;
+  height: 45px; 
+  padding:0 0 4px 0;
+  line-height: 20px;
+  background: blue; border-radius: 50%;
+  border: 8px dotted gold;
+  display: block;
+  font: bold 38px Arial;
+  top: 80px;
+  left: 80.5px;
+  color: black; 
+  text-shadow: 1px 1px 12px #fff;
+}
 </style>
 
 </head>
@@ -104,10 +128,10 @@ img {
 
     <img onclick='rotateGo()' class="rotate imageXX" src="../../../../lib/main/images/fan.png" width="200" heigh="200" />
 
-    <img id="fan" src="../../../../lib/main/images/fan.png" width="200" heigh="200">
-  
-    <button id="on" onclick="starT()"> On </button><br>
-    <button id="off" onclick="stoP()"> Off </button>
+    <div id=fan></div>
+    <br>
+    <button id="pushON" onclick='starT()'> On </button><br>
+    <button id="pushOFF"> Off </button>
   
   </center>
 
@@ -145,26 +169,23 @@ function rotImg(){
 rot.onclick = rotImg;
 
  
-let timer;
-let degFan = 0;
-let on = document.getElementById("on");
-let fan = document.getElementById("fan");
-function starT() {
-  timer = setInterval(rotatE, 100); 
-  on.disabled = true;
-}
+var timer, degFan = 0, 
+    pushON = document.getElementById("pushON"), 
+    pushOFF = document.getElementById('pushOFF'), 
+    fan = document.getElementById("fan"); 
 
-function stoP() {
+  function starT() {
+  timer = setInterval(rotate, 60); 
+  pushON.disabled = true;
+}
+pushOFF.onclick = ()=> {
   clearInterval(timer);
-  on.disabled = false;
+  pushON.disabled = false;  
 }
-
-function rotatE() {
-  degFan += 60;
+function rotate() {
+  degFan += 45;
   fan.style.transform = "rotate("+ (degFan % 360) +"deg)"
 }
-
-
 </script>
 
 <script>
