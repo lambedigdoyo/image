@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flip Horizontal - Flip Vertical</title>
+
+<script src='https://raw.githack.com/lambedigdoyo/image/main/src/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 14vw;
+  margin: 0;
+  background-color: #223;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 72vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+.gridBox {
+  display: grid;
+  width: 100%;
+  margin: 10px auto;
+  gap: 20px;
+  grid-template-columns: calc(50% - 8px) calc(50% - 8px);
+  text-align: center;
+}
+.grid1, .grid2 {
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+}
+img, canvas {
+  display: inline-block; 
+  margin: 10px auto 10px; 
+  border: 1px solid #000; 
+  padding: 5px; 
+  background-color: #ccc; 
+  border-radius: 6px;
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+  <h1>Flip-Horizontal & Flip-Vertical</h1>
+  <h2>Flip an Image with Canvas</h2>
+  <div style='width: 100%; margin: 10px auto; text-align: center'>
+    <h3>Original Image</h3>
+    <image src="https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/mikir.gif" style="width: 100px;"/>
+  </div>
+     
+  <div class=gridBox>
+    <div class=grid1><h3>Horizontal Flip</h3>
+      <canvas id=cvs1></canvas>
+    </div>        
+    <div class=grid2><h3>Vertical Flip</h3>
+      <canvas id=cvs2></canvas>
+    </div>
+  </div>
+  
+<pre class='grpelangi linenums'>&lt;script&gt;
+// Flip: Horizontal
+var cvs1 = document.getElementById('cvs1');
+var ctx1 = cvs1.getContext('2d');
+var image1 = new Image();    
+    image1.src = 'https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/mikir.gif';
+    image1.onload = function () {
+    cvs1.width = image1.naturalWidth;
+    cvs1.height = image1.naturalHeight;
+    ctx1.save();
+    // Multiply the y value by -1 to flip horizontally
+    ctx1.scale(-1, 1);
+    // Start at (-width, 0), which is now the bottom-left corner
+    ctx1.drawImage(image1, -image2.width, 0);
+    ctx1.restore();
+}
+&lt;/script&gt;
+
+&lt;script&gt;
+// Flip : Vertical
+var cvs2 = document.getElementById('cvs2');
+var ctx2 = cvs2.getContext('2d');
+var image2 = new Image();    
+    image2.src = 'https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/mikir.gif';
+    image2.onload = function () {
+    cvs2.width = image2.naturalWidth;
+    cvs2.height = image2.naturalHeight;
+    ctx2.save();
+    // Multiply the y value by -1 to flip vertically 
+    ctx2.scale(1, -1);
+    // Start at (0, -height), which is now the bottom-left corner
+    ctx2.drawImage(image2, 0, -image1.height);
+    ctx2.restore();
+}
+&lt;/script&gt;</pre>
+
+<?pelangi lang=html linenums=true?>
+<pre class="grpelangi" id="gr"></pre>
+
+</div>
+
+<script>
+// Flip: Horizontal
+var cvs1 = document.getElementById('cvs1');
+var ctx1 = cvs1.getContext('2d');
+var image1 = new Image();    
+    image1.src = 'https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/mikir.gif';
+    image1.onload = function () {
+    cvs1.width = image1.naturalWidth;
+    cvs1.height = image1.naturalHeight;
+    ctx1.save();
+    // Multiply the y value by -1 to flip horizontally
+    ctx1.scale(-1, 1);
+    // Start at (-width, 0), which is now the bottom-left corner
+    ctx1.drawImage(image1, -image2.width, 0);
+    ctx1.restore();
+}
+</script>
+
+<script>
+// Flip : Vertical
+var cvs2 = document.getElementById('cvs2');
+var ctx2 = cvs2.getContext('2d');
+var image2 = new Image();    
+    image2.src = 'https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/mikir.gif';
+    image2.onload = function () {
+    cvs2.width = image2.naturalWidth;
+    cvs2.height = image2.naturalHeight;
+    ctx2.save();
+    // Multiply the y value by -1 to flip vertically 
+    ctx2.scale(1, -1);
+    // Start at (0, -height), which is now the bottom-left corner
+    ctx2.drawImage(image2, 0, -image1.height);
+    ctx2.restore();
+}
+</script>
+
+<script src='https://raw.githack.com/lambedigdoyo/image/main/src/js/grPelangi-html-viewer.js'></script>
+
+</body>
+</html>
