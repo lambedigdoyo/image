@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rotate an Image</title>
+
+<script src='../../../../lib/main/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 14vw;
+  margin: 0;
+  background-color: #223;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 72vw;
+  height: calc(100% - 14vh);
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: gold; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: #9dd8e8;
+  }
+</style>
+
+<body>
+
+<div style='width: 100%; height: 80px; padding: 5px; background-color: #555; margin: 10px auto'>
+  <h1>Rotate an Image</h1>
+  <h2>Rotate an image in canvas.</h2>
+</div>
+
+<div class=container>
+
+  <canvas id=canvas width='400' height='220' style='display: block; background-color: lightblue; margin: 10px auto'></canvas>
+
+<pre class='grpelangi linenums'>&lt;canvas id=canvas width='400' height='220' style='display: block; background-color: lightblue; margin: 10px auto'&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+var canvas = document.getElementById('canvas');
+
+var ctx=canvas.getContext("2d");
+ctx.fillStyle='black';
+ctx.globalAlpha=1.0;        
+var rect={ x:100, y:100, width:200, height:20 };
+// black : first image
+ctx.fillRect( rect.x, rect.y, rect.width, rect.height );
+
+// red: image rotate 90deg (Math.PI/2) from black image
+ctx.translate( rect.x+rect.width/2, rect.y+rect.height/2 );
+ctx.rotate(Math.PI/2);
+ctx.fillStyle='red';
+ctx.translate( -rect.x-rect.width/2, -rect.y-rect.height/2 );
+ctx.fillRect( rect.x, rect.y, rect.width, rect.height );
+
+// green: rotate 45deg (Math.PI/4) from red image
+ctx.translate( rect.x+rect.width/2, rect.y+rect.height/2 );
+ctx.rotate(Math.PI/4);
+ctx.fillStyle='green';
+ctx.translate( -rect.x-rect.width/2, -rect.y-rect.height/2 );
+ctx.fillRect( rect.x, rect.y, rect.width, rect.height );
+
+// blue: rotate 60deg (Math.PI/3) from green
+// ctx.clearRect(0, 0,canvas.width, canvas.height);
+// ctx.save();
+ctx.translate( rect.x+rect.width/2, rect.y+rect.height/2 );
+ctx.rotate(Math.PI/3);
+ctx.fillStyle='blue';
+ctx.translate( -rect.x-rect.width/2, -rect.y-rect.height/2 );
+ctx.fillRect( rect.x, rect.y, rect.width, rect.height );
+//ctx.restore();
+&lt;/script&gt;</pre>
+
+</div>
+
+
+<script>
+var canvas = document.getElementById('canvas');
+
+var ctx=canvas.getContext("2d");
+ctx.fillStyle='black';
+ctx.globalAlpha=1.0;        
+var rect={ x:100, y:100, width:200, height:20 };
+// black : first image
+ctx.fillRect( rect.x, rect.y, rect.width, rect.height );
+
+// red: image rotate 90deg (Math.PI/2) from black image
+ctx.translate( rect.x+rect.width/2, rect.y+rect.height/2 );
+ctx.rotate(Math.PI/2);
+ctx.fillStyle='red';
+ctx.translate( -rect.x-rect.width/2, -rect.y-rect.height/2 );
+ctx.fillRect( rect.x, rect.y, rect.width, rect.height );
+
+// green: rotate 45deg (Math.PI/4) from red image
+ctx.translate( rect.x+rect.width/2, rect.y+rect.height/2 );
+ctx.rotate(Math.PI/4);
+ctx.fillStyle='green';
+ctx.translate( -rect.x-rect.width/2, -rect.y-rect.height/2 );
+ctx.fillRect( rect.x, rect.y, rect.width, rect.height );
+
+// blue: rotate 60deg (Math.PI/3) from green
+// ctx.clearRect(0, 0,canvas.width, canvas.height);
+// ctx.save();
+ctx.translate( rect.x+rect.width/2, rect.y+rect.height/2 );
+ctx.rotate(Math.PI/3);
+ctx.fillStyle='blue';
+ctx.translate( -rect.x-rect.width/2, -rect.y-rect.height/2 );
+ctx.fillRect( rect.x, rect.y, rect.width, rect.height );
+//ctx.restore();
+</script>
+
+</body>
+</html>
