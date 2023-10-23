@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Image Flip Horizontal - Flip Vertical</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+h3 { font-size: 18px; text-decoration: underline; }
+h3.title { font-size: 16px;  margin: 0; text-decoration: none; }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+.imgBox, .cvsBox {
+  position: relative;
+  margin: 10px auto;
+  display: inline-block;
+  width: 128px;
+  padding: 4px;
+  border: 1px solid #555;
+  text-align: center;  
+  font-size: 0;
+  background-color: #fff;
+}
+.cvsBox {
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA'); 
+}
+.imgBox:before, .cvsBox:before {
+  content: 'image';
+  position: absolute;
+  font: bold 16px Arial;
+  left: 25px;
+}
+.cvsBox:before {
+  content: 'canvas';
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+  <h1>Image Flip Horizontal - Flip Vertical</h1>
+  <h2>Create Horizontal & Vertical Fip Image onmouseover with Canvas</h2>
+  <h3 align=center>Move the cursor over the canvas!</h3>
+  <div style='width: 264px; margin: 10px auto'>
+    <h3 class=title>Flip: Vertical</h3>
+    <div class=imgBox>
+      <image id=flipImg1 src="https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/mikir.gif" />
+    </div> 
+    <div class=cvsBox>
+      <canvas id=cvs1></canvas>
+    </div>
+  <div>
+
+  <div style='width: 264px; margin: 10px auto'><h3 class=title>Flip: Horizontal</h3>
+    <div class=imgBox>
+      <img id=flipImg2 src="https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/mikir.gif" />
+    </div> 
+    <div class=cvsBox>
+      <canvas id=cvs2></canvas>
+    </div>
+  <div>
+
+<textarea id="code" spellcheck=false wrap=logical placeholder="write text here..."></textarea>
+
+</div>
+
+
+
+<script>
+var dc = document, $ = (id)=> { return dc.querySelector(id); }
+var img1 = document.getElementById('flipImg1');
+var img2 = document.getElementById('flipImg2');
+var cvs1 = document.getElementById('cvs1');
+var ctx1 = cvs1.getContext('2d'); 
+var cvs2 = document.getElementById('cvs2');
+var ctx2 = cvs2.getContext('2d'); 
+
+img1.onload = ()=> {
+  cvs1.width = img1.width; 
+  cvs1.height = img1.height;
+  ctx1.drawImage(img1, 0, 0, img1.width, img1.height); 
+}
+  
+function draw1 (flipVert) {
+  ctx1.clearRect(0, 0, cvs1.width, cvs1.height)
+  ctx1.save();
+  ctx1.scale( 1, flipVert ? -1 : 1);
+  ctx1.drawImage(img1,  0,  flipVert ? img1.height * -1 : 0);
+  ctx1.restore(); 
+}
+
+img2.onload = ()=> {
+  cvs2.width = img2.width; 
+  cvs2.height = img2.height;
+  ctx2.drawImage(img2, 0, 0, img2.width, img2.height); 
+}
+function draw2 (flipHoriz) {
+  ctx2.clearRect(0, 0, cvs2.width, cvs2.height)
+  ctx2.save();
+  ctx2.scale(flipHoriz ? -1 : 1, 1);
+  ctx2.drawImage(img2, flipHoriz ? img2.width * -1 : 0,  0);
+  ctx2.restore(); 
+}
+
+cvs1.onmouseover = ()=> draw1(true)
+cvs1.onmouseout = ()=> draw1(false)
+cvs2.onmouseover = ()=> draw2(true)
+cvs2.onmouseout = ()=> draw2(false)
+</script>
+
+<script>
+window.onload = function() {
+  document.getElementById("code").innerHTML = "<!DOCTYPE html>\n<html>\n" + document.documentElement.innerHTML + "\n<html>"
+};
+</script>
+
+</body>
+</html>
