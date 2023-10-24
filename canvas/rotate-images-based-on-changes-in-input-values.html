@@ -100,12 +100,12 @@ input, textarea, iframe {
 
   
   <h3 class=title align=center>Change the input values ​​below to play rotate:</h3>
-  <input type=number id=degree value=95 step=5 style='width: 50px; display: block; margin: 10px auto 0'/>
+  <input type=number id=degree value=175 step=5 style='width: 50px; display: block; margin: 10px auto 0'/>
   <div class=cvsBox>  
       <canvas id=cvs width='416' height='416' style='background-color: lightblue'></canvas>
   </div>
 
-<pre class='grpelangi linenums'>&lt;input type=number id=degree value=95 step=5 style='width: 50px; display: block; margin: 10px auto 0'/&gt;
+<pre class='grpelangi linenums'>&lt;input type=number id=degree value=175 step=5 style='width: 50px; display: block; margin: 10px auto 0'/&gt;
 &lt;div class=cvsBox&gt;  
   &lt;canvas id=cvs width='416' height='416' style='background-color: lightblue'&gt;&lt;/canvas&gt;
 &lt;/div&gt;
@@ -116,22 +116,18 @@ var ctx = cvs.getContext('2d');
 var degree = document.getElementById('degree');
 
 var image = new Image();
-    image.src = '../../../lib/main/images/GR-cah-ndase.png'; 
-function putar(degrees){    
+    image.src = '../../../lib/main/images/GR-cah-ndase.png';
+function putar(){
+    var degrees = degree.value;
     ctx.clearRect(0, 0, cvs.width, cvs.height);
     ctx.save();
     ctx.translate(cvs.width/2, cvs.height/2);
     ctx.rotate(degrees*Math.PI/180);
-    ctx.drawImage(image,-image.width/2,-image.height/2);
-    
+    ctx.drawImage(image,-image.width/2,-image.height/2);    
     ctx.restore();
 }
-function rubahSudut() {
-var sudut = degree.value;
-putar(sudut)
-}
-degree.oninput = rubahSudut;
-rubahSudut();
+image.onload = putar;
+degree.oninput = putar;
 &lt;/script&gt;</pre>
 
 </div>
@@ -143,22 +139,18 @@ var ctx = cvs.getContext('2d');
 var degree = document.getElementById('degree');
 
 var image = new Image();
-    image.src = 'https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR-cah-ndase.png'; 
-function putar(degrees){    
+    image.src = '../../../lib/main/images/GR-cah-ndase.png';
+function putar(){
+    var degrees = degree.value;
     ctx.clearRect(0, 0, cvs.width, cvs.height);
     ctx.save();
     ctx.translate(cvs.width/2, cvs.height/2);
     ctx.rotate(degrees*Math.PI/180);
-    ctx.drawImage(image,-image.width/2,-image.height/2);
-    
+    ctx.drawImage(image,-image.width/2,-image.height/2);    
     ctx.restore();
 }
-function rubahSudut() {
-var sudut = degree.value;
-putar(sudut)
-}
-degree.oninput = rubahSudut;
-rubahSudut();
+image.onload = putar;
+degree.oninput = putar;
 </script>
 
 
