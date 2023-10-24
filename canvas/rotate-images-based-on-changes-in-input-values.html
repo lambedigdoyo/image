@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rotate Images Based On Changes In Input Values</title>
+
+<script src='../../../../lib/main/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 1vh 14vw;
+  margin: 0;
+  background-color: #223;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 72vw;
+  height: calc(100% - 14vh);
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: gold; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: #9dd8e8;
+  }
+h3 { font-size: 18px; text-decoration: underline; }
+h3.title { font-size: 16px;  margin: 0; text-decoration: none; }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+.imgBox, .cvsBox {
+  position: relative;
+  margin: 10px auto;
+  display: inline-block;
+  width: 100%;
+  padding: 4px;
+  border: 1px solid #555;
+  text-align: center;  
+  font-size: 0;
+  background-color: #fff;
+}
+.cvsBox {
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA'); 
+}
+.cvsBox:before {
+  position: absolute;
+  font: bold 16px Arial;
+  left: calc(50% - 28px);;
+  content: 'canvas';
+}
+</style>
+
+</head>
+<body>
+
+<div style='width: 100%; height: 80px; padding: 5px; background-color: #555; margin: 0 auto 10px; overflow: hidden'>
+  <h1>Rotate Images Based on Changes in Input Values</h1>
+  <h2>Rotate an image around its center in canvas</h2>
+</div>
+  
+<div class=container>
+
+  
+  <h3 class=title align=center>Change the input values ​​below to play rotate:</h3>
+  <input type=number id=degree value=95 step=5 style='width: 50px; display: block; margin: 10px auto 0'/>
+  <div class=cvsBox>  
+      <canvas id=cvs width='416' height='416' style='background-color: lightblue'></canvas>
+  </div>
+
+<pre class='grpelangi linenums'>&lt;input type=number id=degree value=95 step=5 style='width: 50px; display: block; margin: 10px auto 0'/&gt;
+&lt;div class=cvsBox&gt;  
+  &lt;canvas id=cvs width='416' height='416' style='background-color: lightblue'&gt;&lt;/canvas&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+var cvs = document.getElementById('cvs');
+var ctx = cvs.getContext('2d');
+var degree = document.getElementById('degree');
+
+var image = new Image();
+    image.src = 'https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR-cah-ndase.png'; 
+function putar(degrees){    
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    ctx.save();
+    ctx.translate(cvs.width/2, cvs.height/2);
+    ctx.rotate(degrees*Math.PI/180);
+    ctx.drawImage(image,-image.width/2,-image.height/2);
+    
+    ctx.restore();
+}
+function rubahSudut() {
+var sudut = degree.value;
+putar(sudut)
+}
+degree.oninput = rubahSudut;
+rubahSudut();
+&lt;/script&gt;</pre>
+
+</div>
+
+
+<script>
+var cvs = document.getElementById('cvs');
+var ctx = cvs.getContext('2d');
+var degree = document.getElementById('degree');
+
+var image = new Image();
+    image.src = 'https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR-cah-ndase.png'; 
+function putar(degrees){    
+    ctx.clearRect(0, 0, cvs.width, cvs.height);
+    ctx.save();
+    ctx.translate(cvs.width/2, cvs.height/2);
+    ctx.rotate(degrees*Math.PI/180);
+    ctx.drawImage(image,-image.width/2,-image.height/2);
+    
+    ctx.restore();
+}
+function rubahSudut() {
+var sudut = degree.value;
+putar(sudut)
+}
+degree.oninput = rubahSudut;
+rubahSudut();
+</script>
+
+
+</body>
+</html>
