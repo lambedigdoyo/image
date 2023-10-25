@@ -109,14 +109,14 @@ var cvs = document.getElementById('cvs');
 // line-A
 var ctx = cvs.getContext("2d");
 ctx.moveTo(35, 125); // ctx.moveTo(x, y) : start point
-ctx.lineTo(375, 125); // ctx.lineTo(x, y) : end point
+ctx.lineTo(375, 125); // ctx.lineTo(x, y) : end point ,
 ctx.stroke();
 
 // line-B
 ctx.beginPath();
 ctx.moveTo(100, 200);
 ctx.lineTo(300, 200);
-ctx.strokeStyle='blue';
+ctx.strokeStyle='red';
 ctx.stroke();
 
 // line-C
@@ -153,7 +153,7 @@ ctx.beginPath();
 ctx.fillText('B', 190, 63 );
 ctx.moveTo(100, 200);
 ctx.lineTo(300, 200);
-ctx.strokeStyle='blue';
+ctx.strokeStyle='red';
 ctx.stroke();
 
 // line-C
@@ -166,7 +166,7 @@ ctx.stroke();
 
 // line-D
 ctx.beginPath();
-ctx.fillText('E', 355, 42 );
+ctx.fillText('D', 355, 42 );
 ctx.moveTo(50, 215);
 ctx.lineTo(350, 35);
 ctx.lineWidth ='10';
