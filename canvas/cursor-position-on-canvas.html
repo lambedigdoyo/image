@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mouse Positions on Canvas</title>
+
+<script src='../../../lib/main/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 1vh 14vw;
+  margin: 0;
+  background-color: #223;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 72vw;
+  height: calc(100% - 15vh);
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: gold; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #000, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: #9dd8e8;
+  }
+h3 { font-size: 18px; text-decoration: underline; }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+input[type=button], button {
+  margin: 5px 2px 0;
+  padding: 4px 12px 6px;
+  font-size: 16px;
+  border-radius: 6px;
+}
+canvas {
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  background: lightyellow;
+  border-radius: 3px;
+  display: block;
+  margin: 10px auto;
+  border: 1px solid #aaa;
+}
+</style>
+
+</head>
+<body>
+
+
+<div style='width: 100%; height: 80px; padding: 5px; background-color: #555; margin: 0 auto 10px; overflow: hidden'>
+<h1>Cursor Positions on Canvas</h1>
+<h2>Get the mouse coordinates onmousemove</h2>
+</div>
+
+<div class=container>
+
+  <div align=center>
+    <canvas id=cvid width='400' height='250'></canvas>
+  </div>
+
+<pre class='grpelangi linenums'>&lt;style&gt;
+canvas {
+  background: lightyellow;
+  border-radius: 6px;
+  display: block;
+  margin: 10px auto;
+  border: 6px solid #aaa;
+}
+&lt;/style&gt;
+
+&lt;div align=center&gt;
+  &lt;canvas id=cvid width='400' height='250'&gt;&lt;/canvas&gt;
+&lt;/div&gt;
+
+&lt;script&gt;
+var cv = document.getElementById('cvid');
+var ctx = cv.getContext("2d");
+var ctx2 = cv.getContext("2d");
+ctx.font = "16px Arial";
+var centerX = cv.width / 2;
+var centerY = cv.height / 2;
+var gBCR = cv.getBoundingClientRect();
+
+cv.addEventListener("mousemove", function(e) {
+  var cvX = Math.round(e.clientX - gBCR.left);
+  var cvY = Math.round(e.clientY - gBCR.top);
+  ctx2.clearRect(0, 0, cv.width, cv.height);
+  drawEmoji(); 
+  ctx.fillStyle = 'black';
+  ctx.fillText("X: "+cvX+", Y: "+cvY, centerX-50, 20);
+});
+
+function drawEmoji() {
+  ctx2.beginPath();
+  ctx2.fillStyle = 'red';
+  ctx2.arc(centerX, centerY, 5, 0, 2*Math.PI);
+  ctx2.fill();
+  ctx2.stroke(); 
+  ctx.closePath();
+
+  ctx.beginPath();
+  ctx.lineWidth = '3';   
+  ctx.arc(200, 125, 65, 0, Math.PI * 2, true); // Outer circle
+  ctx.moveTo(110, 95);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.lineWidth = '8';
+  ctx.strokeStyle ='red';
+  ctx.arc(200, 120, 57, 0.35, 0.9*Math.PI, false); // Mouth  
+  ctx.stroke();
+  ctx.closePath();
+    
+  ctx.beginPath();
+  ctx.lineWidth = '3';    
+  ctx.strokeStyle ='black';
+  ctx.fillStyle = 'orange';   
+  ctx.moveTo(155, 115);
+  ctx.arc(175, 115, 18, 0, Math.PI * 2, true); // Left eye
+  ctx.moveTo(205, 115);
+  ctx.arc(225, 115, 18, 0, Math.PI * 2, true); // Right eye
+  ctx.fill();    
+  ctx.stroke();
+  ctx.closePath();
+}
+drawEmoji()
+&lt;/script&gt;</pre>
+
+</div>
+
+<script>
+var cv = document.getElementById('cvid');
+var ctx = cv.getContext("2d");
+var ctx2 = cv.getContext("2d");
+ctx.font = "16px Arial";
+var centerX = cv.width / 2;
+var centerY = cv.height / 2;
+var gBCR = cv.getBoundingClientRect();
+
+cv.addEventListener("mousemove", function(e) {
+  var cvX = Math.round(e.clientX - gBCR.left);
+  var cvY = Math.round(e.clientY - gBCR.top);
+  ctx2.clearRect(0, 0, cv.width, cv.height);
+  drawEmoji(); 
+  ctx.fillStyle = 'black';
+  ctx.fillText("X: "+cvX+", Y: "+cvY, centerX-50, 20);
+});
+
+function drawEmoji() {
+  ctx2.beginPath();
+  ctx2.fillStyle = 'red';
+  ctx2.arc(centerX, centerY, 5, 0, 2*Math.PI);
+  ctx2.fill();
+  ctx2.stroke(); 
+  ctx.closePath();
+
+  ctx.beginPath();
+  ctx.lineWidth = '3';   
+  ctx.arc(200, 125, 65, 0, Math.PI * 2, true); // Outer circle
+  ctx.moveTo(110, 95);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.lineWidth = '8';
+  ctx.strokeStyle ='red';
+  ctx.arc(200, 120, 57, 0.35, 0.9*Math.PI, false); // Mouth  
+  ctx.stroke();
+  ctx.closePath();
+    
+  ctx.beginPath();
+  ctx.lineWidth = '3';    
+  ctx.strokeStyle ='black';
+  ctx.fillStyle = 'orange';   
+  ctx.moveTo(155, 115);
+  ctx.arc(175, 115, 18, 0, Math.PI * 2, true); // Left eye
+  ctx.moveTo(205, 115);
+  ctx.arc(225, 115, 18, 0, Math.PI * 2, true); // Right eye
+  ctx.fill();    
+  ctx.stroke();
+  ctx.closePath();
+}
+drawEmoji()
+</script>
+
+</body>
+</html>
