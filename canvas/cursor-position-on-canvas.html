@@ -174,39 +174,68 @@ cv.addEventListener("mousemove", function(e) {
   ctx.fillText("X: "+cvX+", Y: "+cvY, centerX-50, 20);
 });
 
-function drawEmoji() {
-  ctx2.beginPath();
-  ctx2.fillStyle = 'red';
-  ctx2.arc(centerX, centerY, 5, 0, 2*Math.PI);
-  ctx2.fill();
-  ctx2.stroke(); 
-  ctx.closePath();
+    function drawEmoji() {
+      ctx2.beginPath();
+      ctx.lineWidth = '2';
+      ctx2.fillStyle = '#F334FD';
+      ctx2.arc(centerX, centerY, 12, 0, 2*Math.PI);
+      ctx2.fill();
+      ctx.stroke();
+      
+      ctx.beginPath();
+      ctx.lineWidth = '4';
+      ctx.arc(200, 125, 65, 0, Math.PI * 2, true); // Outer circle
+      ctx.moveTo(110, 95);
+      ctx.stroke();
 
-  ctx.beginPath();
-  ctx.lineWidth = '3';   
-  ctx.arc(200, 125, 65, 0, Math.PI * 2, true); // Outer circle
-  ctx.moveTo(110, 95);
-  ctx.stroke();
-  ctx.beginPath();
-  ctx.lineWidth = '8';
-  ctx.strokeStyle ='red';
-  ctx.arc(200, 120, 57, 0.35, 0.9*Math.PI, false); // Mouth  
-  ctx.stroke();
-  ctx.closePath();
+      ctx.beginPath();
+      ctx.lineWidth = '8';
+      ctx.strokeStyle ='red';
+      ctx.arc(200, 116, 50, 0.62, 0.81*Math.PI, false); // Mouth  
+      ctx.stroke();
+        
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';  
+      ctx.arc(170, 115, 20, 0, Math.PI * 2, true); // Left eye
+      ctx.arc(230, 115, 20, 0, Math.PI * 2, true); // Right eye
+      ctx.fill();    
+
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.4)';  
+      ctx.arc(170, 115, 18, 0, Math.PI * 2, true); // Left eye
+      ctx.fill();    
+
+      ctx.beginPath();
+      ctx.fillStyle = 'rgba(255, 0, 0, 0.4)';         
+      ctx.arc(230, 115, 18, 0, Math.PI * 2, true); // Right eye
+      ctx.fill();    
     
-  ctx.beginPath();
-  ctx.lineWidth = '3';    
-  ctx.strokeStyle ='black';
-  ctx.fillStyle = 'orange';   
-  ctx.moveTo(155, 115);
-  ctx.arc(175, 115, 18, 0, Math.PI * 2, true); // Left eye
-  ctx.moveTo(205, 115);
-  ctx.arc(225, 115, 18, 0, Math.PI * 2, true); // Right eye
-  ctx.fill();    
-  ctx.stroke();
-  ctx.closePath();
-}
-drawEmoji()
+      ctx.beginPath();
+      ctx.fillStyle = 'blue';  
+      ctx.lineWidth = '1';                   
+      ctx.arc(170, 115, 14, 0, Math.PI * 2, true); // Left eye
+      ctx.fill();    
+      ctx.stroke();   
+
+      ctx.beginPath();
+      ctx.arc(230, 115, 14, 0, Math.PI * 2, true); // Right eye
+      ctx.fill();    
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.lineWidth = '46'; 
+      ctx.strokeStyle ='black';         
+      ctx.moveTo(122, 120);
+      ctx.lineTo(138, 122);
+      ctx.stroke();
+
+      ctx.beginPath();   
+      ctx.moveTo(278, 120);
+      ctx.lineTo(262, 122);
+      ctx.stroke();           
+      ctx.closePath();
+    }
+    drawEmoji()
 </script>
 
 </body>
