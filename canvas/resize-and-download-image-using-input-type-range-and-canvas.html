@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resize and Download an Image using Input Type Range & Canvas</title>
+
+<script src='../../../lib/main/js/grPelangi-auto.js'></script>
+<script src='https://raw.githack.com/lambedigdoyo/image/main/src/js/grPelangi-auto.js'></script>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 5vw;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 90vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+  }
+.gridBox {
+  display: grid;
+  width: 100%;
+  margin: 10px auto;
+  gap: 16px;
+  grid-template-columns: calc(30% - 8px) calc(54% - 8px) calc(16% - 8px);
+  }
+.grid1, .grid2, .grid3 {
+  width: 100%;
+  }
+.grid2 input {
+  width: 70%;
+  float: right;
+  margin-right: 10px;
+  }
+.newImageDiv {
+  margin: 10px auto;
+  width: 100%;
+  text-align: center;
+  font-size: 0;
+  background-color: #555;
+  padding: 4px;
+  min-height: 40px;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+img#newImage {
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  }
+#dlink {
+  display: block; 
+  position: fixed; 
+  bottom: 10px; 
+  right: 250px; 
+  font: bold 14px Arial; 
+  color: red; 
+  padding: 3px 6px; 
+  border: 1px solid #555; 
+  background-color: #eee; 
+  border-radius: 4px; 
+  display: none;
+  }
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Resize and Download an Image using Input Type Range & Canvas</h1>
+<h2>Use the input type range to change the image size</h2>
+<a href='javascript:void()' id=dlink></a>
+  <div class=gridBox>
+    <div class=grid1>
+      <input type="file" id="selectImage" onchange='loadToResize()' accept='image/*' />
+    </div>
+    <div class=grid2>
+      <b>Adjust the Scale: </b><input id=scale type=range min=0.05 max=2.5 step=0.005 value=1.0 />
+    </div>
+    <div class=grid3>
+      <b>Scale</b>: <input type=text id=scalePrev value=1 style='width:40px; text-align: center'/>
+    </div>
+  </div>
+    
+  <div class=newImageDiv><h3 id='please' style='color: #fff; font: bold 16px Arial; text-align: center; display: block'>Upload your image and then resize & download</h3> 
+    <img id="newImage" />
+  </div>
+
+  <input id=dimens type=text style='display: block; width: 210px; text-align: center; position: fixed; bottom: 10px; right: 10px' />
+
+
+  <pre class='grpelangi linenums'>&lt;style&gt;
+.gridBox {
+  display: grid;
+  width: 100%;
+  margin: 10px auto;
+  gap: 16px;
+  grid-template-columns: calc(30% - 8px) calc(54% - 8px) calc(16% - 8px);
+  }
+.grid1, .grid2, .grid3 {
+  width: 100%;
+  }
+.grid2 input {
+  width: 70%;
+  float: right;
+  margin-right: 10px;
+  }
+.newImageDiv {
+  margin: 10px auto;
+  width: 100%;
+  text-align: center;
+  font-size: 0;
+  background-color: #555;
+  padding: 4px;
+  min-height: 40px;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  }
+img#newImage {
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  }
+#dlink {
+  display: block; 
+  position: fixed; 
+  bottom: 10px; 
+  right: 250px; 
+  font: bold 14px Arial; 
+  color: red; 
+  padding: 3px 6px; 
+  border: 1px solid #555; 
+  background-color: #eee; 
+  border-radius: 4px; 
+  display: none;
+  }
+&lt;/style&gt;
+
+
+&lt;a href='javascript:void()' id=dlink&gt;&lt;/a&gt;
+  &lt;div class=gridBox&gt;
+    &lt;div class=grid1&gt;
+      &lt;input type="file" id="selectImage" onchange='loadToResize()' accept='image/*' /&gt;
+    &lt;/div&gt;
+    &lt;div class=grid2&gt;
+      &lt;b&gt;Adjust the Scale: &lt;/b&gt;&lt;input id=scale type=range min=0.05 max=2.5 step=0.005 value=1.0 /&gt;
+    &lt;/div&gt;
+    &lt;div class=grid3&gt;
+      &lt;b&gt;Scale&lt;/b&gt;: &lt;input type=text id=scalePrev value=1 style='width:40px; text-align: center'/&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+    
+  &lt;div class=newImageDiv&gt;
+    &lt;img id="newImage" /&gt;
+  &lt;/div&gt;
+
+  &lt;input id=dimens type=text style='display: block; width: 210px; text-align: center; position: fixed; bottom: 10px; right: 10px' /&gt;
+
+
+&lt;script&gt;
+var scale = document.getElementById('scale'); 
+var scalePrev = document.getElementById('scalePrev');
+var canvas = document.createElement('canvas');
+var ctx = canvas.getContext('2d');
+var newImage = document.querySelector('#newImage');
+var dimens = document.getElementById('dimens');
+var dlink = document.getElementById("dlink");
+    
+      
+function loadToResize() {
+  var scaleVal = scale.value;
+  var file = document.querySelector('#selectImage').files[0];
+  var fR = new FileReader();
+  fR.onloadend = function(event) {
+    var img = new Image();
+    img.src = event.target.result;   
+    scalePrev.value = scaleVal; 
+    img.onload = function() {  
+      var newWidth = scaleVal * img.width;
+      var newHeight = newWidth / img.width * img.height;    
+      dimens.value = 'Image dimensions: ' + newWidth.toFixed(0) + ' x ' + newHeight.toFixed(0);
+      canvas.width = newWidth;
+      canvas.height = newHeight; 
+      ctx.drawImage(img, 0, 0, newWidth, newHeight);
+      var b64 = canvas.toDataURL(file.type, 0.6);
+      newImage.src = b64;
+      newImage.title = file.name;      
+      dlink.innerHTML = "Download";
+      dlink.style.display = 'block';
+      dlink.setAttribute("download", "resized-"+file.name);
+      dlink.href = b64;
+    }
+  }
+  fR.readAsDataURL(file);
+}
+scale.oninput = loadToResize;
+loadToResize()
+&lt;/script&gt;</pre>
+</div>
+
+
+<script>
+var scale = document.getElementById('scale'); 
+var scalePrev = document.getElementById('scalePrev');
+var canvas = document.createElement('canvas');
+var ctx = canvas.getContext('2d');
+var newImage = document.querySelector('#newImage');
+var dimens = document.getElementById('dimens');
+var dlink = document.getElementById("dlink");
+
+function loadToResize() {
+  var scaleVal = scale.value;
+  var file = document.querySelector('#selectImage').files[0];
+  var fR = new FileReader();
+  fR.onloadend = function(event) {
+    var img = new Image();
+    img.src = event.target.result;   
+    scalePrev.value = scaleVal; 
+    img.onload = function() {  
+    document.getElementById('please').style.display = 'none';         
+      var newWidth = scaleVal * img.width;
+      var newHeight = newWidth / img.width * img.height;    
+      dimens.value = 'Image dimensions: ' + newWidth.toFixed(0) + ' x ' + newHeight.toFixed(0);
+      canvas.width = newWidth;
+      canvas.height = newHeight; 
+      ctx.drawImage(img, 0, 0, newWidth, newHeight);
+      var b64 = canvas.toDataURL(file.type, 0.6);
+      newImage.src = b64;
+      newImage.title = file.name;      
+      dlink.innerHTML = "Download";
+      dlink.style.display = 'block';
+      dlink.setAttribute("download", "resized-"+file.name);
+      dlink.href = b64;
+    }
+  }
+  fR.readAsDataURL(file);
+}
+scale.oninput = loadToResize;
+loadToResize()
+</script>
+
+</body>
+</html>
