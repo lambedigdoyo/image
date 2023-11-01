@@ -247,10 +247,10 @@ function resetSetting() {
 
 <script>
 var allRanges = document.querySelectorAll(".range-wrap");
+var range, bubble;
 allRanges.forEach(wrap => {
-  var range = wrap.querySelector(".range");
-  var bubble = wrap.querySelector(".bubble");
-
+  range = wrap.querySelector(".range");
+  bubble = wrap.querySelector(".bubble");
   range.addEventListener("input", () => {
     setBubble(range, bubble);
   });
