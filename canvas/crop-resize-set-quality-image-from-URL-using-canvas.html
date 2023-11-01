@@ -182,9 +182,11 @@ function cropImage() {
     var oriWidth = img.width;
     var oriHeight = img.height;
     document.getElementById('oriDim').value = 'Image: ' + oriWidth + ' x ' + oriHeight + ' (px)';
+    var calcHeight = document.getElementById('calcHeight');
+    calcHeight.value = (imgWidth / oriWidth * oriHeight).toFixed(0);
     cvs.width = imgWidth;
     cvs.height = imgHeight;
-    ctx.drawImage(img, xPos, yPos, imgWidth, imgHeight, 0, 0, imgWidth * scale, imgHeight * scale);
+    ctx.drawImage(img, xPos, yPos, imgWidth / scale, imgHeight / scale, 0, 0, imgWidth, imgHeight);
     var dataCVS = cvs.toDataURL('image/jpeg', +quality.value);
     croppedImage.src = dataCVS;
     document.getElementById('code').value = dataCVS;
