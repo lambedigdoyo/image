@@ -15,16 +15,16 @@ html, body {
   }
 body {
   height: 100vh;
-  padding: 2vh 5vw;
+  padding: 1vh 2vw;
   margin: 0;
 background-color: #333;
   font: normal 14px "Consolas", Monospace;
   overflow: hidden;
   }
 .container {
-  width: 90vw;
+  width: 96vw;
   height: 100%;
-  padding: 0 20px;
+  padding: 0 10px;
   margin: 0 auto;
   overflow: auto;
   background-color: #F9F7C2
@@ -63,8 +63,8 @@ input {
 .setBox {
   position: fixed;
   bottom: 5px;
-  right: 5px;
-  width: calc(100% - 10px);
+  left: 3.5vw;
+  width: calc(100% - 9vw);
   height: 32px;
   display: grid;
   padding: 3px;
@@ -86,6 +86,11 @@ input {
   }
 #setWd, #setHg {
   width: 65px;
+  }
+.resetBtn {
+  position: fixed;
+  bottom: 45px;
+  right: 0;
   }
 .range-wrap {
   position: relative;
@@ -130,12 +135,12 @@ input {
 
 <h1>Crop, Resize and Set Quality an Image from URL using Canvas</h1>
 <h2>Cropping, Resizing and Setting Image Quality with Canvas</h2>
-Paste image link here: <input type='text' id='imageLink' value='https://source.unsplash.com/random/200x300?woman,dance' style='width:calc(100% - 185px)'/>
+Paste image link here: <input type='text' id='imageLink' value='https://source.unsplash.com/random/400x600?bikini' style='width:calc(100% - 185px)'/>
 <div class='setBox'>
 <input type='number' id='setX' step=5 value='0' title='Set the value to change the horizontal position of the image.' />
 <input type='number' id='setY' step=5 value='0' title='Set the value to change the vertical position of the image.' />
-<input type='number' id='setWd' step=5 value='200' title='Set the value to change image width.' />
-<input type='number' id='setHg' step=5 value='300' title='Set the value to change image height.' />
+<input type='number' id='setWd' step=5 value='400' title='Set the value to change image width.' />
+<input type='number' id='setHg' step=5 value='600' title='Set the value to change image height.' />
 <select id=imageType>
   <option value=jpeg>JPG</option>
   <option value=png>PNG</option>
@@ -145,16 +150,20 @@ Paste image link here: <input type='text' id='imageLink' value='https://source.u
 <button id='download' title='Click to download!'>Download</button>
 
 <div class="range-wrap">
-  <input type=range class=range id=scaleImage value=1 min=0.05 max=4 step=0.05 />
+  <input type=range class=range id=scaleImage value=1 min=0.05 max=5 step=0.001 />
   <output class="bubble"></output>
 </div>
 </div>
-<input type=text id=oriDim title='Original image dimensions.'  style='position: fixed; bottom: 32px; left: 1vw; width: 182px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff'/>
-<input type=text id=calcHeight style='position: fixed; bottom: 32px; left: 191px; width: 65px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff' />
+<input type=text id=oriDim title='Original image dimensions.'  style='position: fixed; bottom: 38px; left: 3.5vw; width: 182px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff'/>
+<input type=text id=calcHeight style='position: fixed; bottom: 38px; left: 228px; width: 65px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff' />
+<button class=resetBtn onclick='resetSetting()'>RESET</button>
+
 <div style='width: 100%; text-align: center; margin: 10px auto; background-color: #333; padding: 4px 0; font-size: 0;'><img id='croppedImage' style='border: 1px solid #888'/></div>
 <div id='canvasBox' style='display: none'></div>
 
 <textarea id="code" spellcheck=false wrap=logical></textarea>
+<input id=originalW style='display: none' />
+<input id=originalH style='display: none' />
 
 </div>
 
@@ -171,6 +180,8 @@ var download = document.getElementById('download');
 var canvasBox = document.getElementById('canvasBox');
 var croppedImage = document.getElementById('croppedImage');
 var scaleImage = document.getElementById('scaleImage');
+var originalW = document.getElementById('originalW');;
+var originalH = document.getElementById('originalH');;
 
 function cropImage() {
   canvasBox.innerHTML = '';
@@ -190,14 +201,16 @@ function cropImage() {
     canvasBox.appendChild(cvs);
     var ctx = cvs.getContext('2d');
     var oriWidth = img.width;
+    originalW.value = oriWidth;
     var oriHeight = img.height;
-    document.getElementById('oriDim').value = 'Image: ' + oriWidth + ' x ' + oriHeight + ' (px)';
+    originalH.value = oriHeight;
+    document.getElementById('oriDim').value = 'Original Size: ' + oriWidth + ' x ' + oriHeight + ' (px)';
     var calcHeight = document.getElementById('calcHeight');
     calcHeight.value = (imgWidth / oriWidth * oriHeight).toFixed(0);
     cvs.width = imgWidth;
     cvs.height = imgHeight;
     ctx.drawImage(img, xPos, yPos, imgWidth / scale, imgHeight / scale, 0, 0, imgWidth, imgHeight);
-    var dataCVS = cvs.toDataURL('image/' + type, + quality.value);
+    var dataCVS = cvs.toDataURL('image/' + type, +quality.value);
     croppedImage.src = dataCVS;
     document.getElementById('code').value = dataCVS;
   });
@@ -218,6 +231,14 @@ setWd.oninput = cropImage;
 setHg.oninput = cropImage;
 scaleImage.oninput = cropImage;
 cropImage();
+
+function resetSetting() {
+  setX.value = 0;
+  setY.value = 0;
+  setWd.value = originalW.value;
+  setHg.value = originalH.value;
+  cropImage(); 
+}
 </script>
 
 <script>
