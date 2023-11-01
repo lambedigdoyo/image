@@ -154,8 +154,8 @@ Paste image link here: <input type='text' id='imageLink' value='https://source.u
   <output class="bubble"></output>
 </div>
 </div>
-<input type=text id=oriDim title='Original image dimensions.'  style='position: fixed; bottom: 38px; left: 3.5vw; width: 182px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff'/>
-<input type=text id=calcHeight style='position: fixed; bottom: 38px; left: 228px; width: 65px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff' />
+<input type=text id=oriDim title='Original image dimensions.'  style='position: fixed; bottom: 38px; left: 3.55vw; width: 182px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff'/>
+<input type=text id=calcHeight style='position: fixed; bottom: 38px; left: 230px; width: 65px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff' />
 <button class=resetBtn onclick='resetSetting()'>RESET</button>
 
 <div style='width: 100%; text-align: center; margin: 10px auto; background-color: #333; padding: 4px 0; font-size: 0;'><img id='croppedImage' style='border: 1px solid #888'/></div>
@@ -235,8 +235,12 @@ cropImage();
 function resetSetting() {
   setX.value = 0;
   setY.value = 0;
+  scaleImage.value = 1;
   setWd.value = originalW.value;
   setHg.value = originalH.value;
+  setBubble(range, bubble);
+  bubble.innerHTML = 1;
+  range.value = 1;
   cropImage(); 
 }
 </script>
