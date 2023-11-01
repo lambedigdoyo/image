@@ -59,7 +59,7 @@ textarea {
   }
 input {
   text-align: center;
-}
+  }
 .setBox {
   position: fixed;
   bottom: 5px;
@@ -68,26 +68,29 @@ input {
   height: 32px;
   display: grid;
   padding: 3px;
-/* ==   grid-template-columns: calc(10% - 4px)  calc(10% - 4px) calc(10% - 4px) calc(10% - 4px) calc(35% - 4px) calc(17% - 4px) calc(8% - 4px); -== */
-  grid-template-columns: 65px  65px 65px 65px 150px 70px 45px 60%;
-  gap : 4px;
+/* ==   grid-template-columns: 40px calc(10% - 4px) calc(10% - 4px) calc(10% - 4px) calc(35% - 4px) calc(17% - 4px) calc(8% - 4px); -== */
+  grid-template-columns: 55px  55px 65px 65px 65px 55px 80px 60%;
+  gap : 2px;
   border: 1px solid #555;
   background-color: lightgreen;
   margin: 5px auto 0;
-}
+  }
 .setBox > input, .setBox > button {
   display: inline-block;
   width: 100%;
   margin: 0;
   height: 25px;
-}
-#setX, #setY, #setWd, #setHg {
+  }
+#setX, #setY {
+  width: 55px;
+  }
+#setWd, #setHg {
   width: 65px;
-}
+  }
 .range-wrap {
   position: relative;
   margin: 0 auto ; width: 70%; 
-}
+  }
 .range-wrap:before {
   content: 'scale';
   position: absolute;
@@ -118,7 +121,6 @@ input {
   top: -1px;
   left: -50%;
   }
-
 </style>
 
 </head>
@@ -128,27 +130,31 @@ input {
 
 <h1>Crop, Resize and Set Quality an Image from URL using Canvas</h1>
 <h2>Cropping, Resizing and Setting Image Quality with Canvas</h2>
-Paste image link here: <input type='text' id='imageLink' value='https://source.unsplash.com/random/400x600?bikini' style='width:calc(100% - 185px)'/>
+Paste image link here: <input type='text' id='imageLink' value='https://source.unsplash.com/random/200x300?woman,dance' style='width:calc(100% - 185px)'/>
 <div class='setBox'>
 <input type='number' id='setX' step=5 value='0' title='Set the value to change the horizontal position of the image.' />
 <input type='number' id='setY' step=5 value='0' title='Set the value to change the vertical position of the image.' />
-<input type='number' id='setWd' step=5 value='400' title='Set the value to change image width.' />
-<input type='number' id='setHg' step=5 value='600' title='Set the value to change image height.' />
-<input type=text id=oriDim title='Original image dimensions.' />
+<input type='number' id='setWd' step=5 value='200' title='Set the value to change image width.' />
+<input type='number' id='setHg' step=5 value='300' title='Set the value to change image height.' />
+<select id=imageType>
+  <option value=jpeg>JPG</option>
+  <option value=png>PNG</option>
+  <option value=webp>WEBP</option>
+</select>
+<input type='number' id='quality' min='0.05' max='1.0' step='0.05' value='0.5' title='Change to adjust image quality.' />
 <button id='download' title='Click to download!'>Download</button>
-<input type='number' id='quality' min='0.1' max='1.0' step='0.1' value='0.5' title='Change to adjust image quality.' />
+
 <div class="range-wrap">
   <input type=range class=range id=scaleImage value=1 min=0.05 max=4 step=0.05 />
   <output class="bubble"></output>
 </div>
 </div>
-
-<input type=text id=calcHeight style='position: fixed; bottom: 30px; left: 216px; width: 65px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff' />
-  
-<div style='width: 100%; text-align: center; margin: 10px auto; background-color: #333; padding: 4px 0; font-size: 0'><img id='croppedImage' style='max-width: 100%; border: 1px solid #888'/></div>
+<input type=text id=oriDim title='Original image dimensions.'  style='position: fixed; bottom: 32px; left: 1vw; width: 182px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff'/>
+<input type=text id=calcHeight style='position: fixed; bottom: 32px; left: 191px; width: 65px; text-align: center; background-color: rgba(0,0,0,0.8); color: #fff' />
+<div style='width: 100%; text-align: center; margin: 10px auto; background-color: #333; padding: 4px 0; font-size: 0;'><img id='croppedImage' style='border: 1px solid #888'/></div>
 <div id='canvasBox' style='display: none'></div>
 
-<textarea id="code" spellcheck=false wrap=logical placeholder="write text here..."></textarea>
+<textarea id="code" spellcheck=false wrap=logical></textarea>
 
 </div>
 
@@ -159,6 +165,7 @@ var setX = document.getElementById('setX');
 var setY = document.getElementById('setY');
 var setWd = document.getElementById('setWd');
 var setHg = document.getElementById('setHg');
+var imageType = document.getElementById('imageType');
 var quality = document.getElementById('quality');
 var download = document.getElementById('download');
 var canvasBox = document.getElementById('canvasBox');
@@ -173,6 +180,7 @@ function cropImage() {
   var scale = scaleImage.value;
   var imgWidth = setWd.value; //alert(scale)
   var imgHeight = setHg.value;
+  var type = imageType.value;
   var img = new Image();
   img.setAttribute('crossOrigin', 'anonymous');
   img.src = path;
@@ -189,7 +197,7 @@ function cropImage() {
     cvs.width = imgWidth;
     cvs.height = imgHeight;
     ctx.drawImage(img, xPos, yPos, imgWidth / scale, imgHeight / scale, 0, 0, imgWidth, imgHeight);
-    var dataCVS = cvs.toDataURL('image/jpeg', +quality.value);
+    var dataCVS = cvs.toDataURL('image/' + type, + quality.value);
     croppedImage.src = dataCVS;
     document.getElementById('code').value = dataCVS;
   });
@@ -201,6 +209,7 @@ download.onclick = function () {
   dl.href = croppedImage.src;
   dl.click();
 }
+imageType.onchange = cropImage;
 quality.oninput = cropImage;
 imageLink.oninput = cropImage;
 setX.oninput = cropImage;
