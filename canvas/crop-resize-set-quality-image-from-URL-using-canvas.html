@@ -222,21 +222,17 @@ loadImage.addEventListener('change', event => {
   var uploaded = event.target.files[0];
   var calcHg = calcHeight.value;
     imageLinks = URL.createObjectURL(uploaded); // alert(imageLinks)
-//    imageLink.style.display = 'block';
-//    var prev = prev;
-//    imageURL.value = imageLinks;
+    var type = uploaded.type.split('/')[1];
     prev.onload = ()=> {
       prevWidth = prev.width; 
       prevHeight = prev.height;
-//      oriDim.value = prevWidth + 'px x ' + prevHeight + 'px';
+      imageType.value = type;
       cropImage()
     }
      prev.src = imageLinks;
      imageLink.value = imageLinks;
-//  }
-  loadImage.value = null;
-  
 });
+
 var imageURL = document.getElementById("imageURL");
 
 function cropImage() {
