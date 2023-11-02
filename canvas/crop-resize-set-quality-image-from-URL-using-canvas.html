@@ -272,6 +272,7 @@ function cropImage() {
   var img = new Image();
   img.setAttribute('crossOrigin', 'anonymous');
   img.src = path;
+  prev.src = img.src;
   img.addEventListener('load', function () {
     var cvs = document.createElement('canvas');
     cvs.setAttribute('id', 'canvas');
