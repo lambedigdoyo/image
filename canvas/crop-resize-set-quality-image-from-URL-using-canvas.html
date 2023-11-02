@@ -213,6 +213,7 @@ img#prev {
 
 <script>
 var imageLink = document.getElementById('imageLink');
+var prev = document.getElementById('prev');  
 var setX = document.getElementById('setX');
 var setY = document.getElementById('setY');
 var setWd = document.getElementById('setWd');
@@ -233,17 +234,31 @@ loadImage.addEventListener('change', event => {
   var calcHg = calcHeight.value;
     imageLinks = URL.createObjectURL(uploaded); // alert(imageLinks)
     var type = uploaded.type.split('/')[1];
-    prev.onload = ()=> {
+    var prevX = document.createElement('img');
+    prevX.onload = ()=> {
       prevWidth = prev.width; 
       prevHeight = prev.height;
       imageType.value = type;
       cropImage()
     }
-     prev.src = imageLinks;
+     prevX.src = imageLinks;
      imageLink.value = imageLinks;
 });
-
+// https://raw.githubusercontent.com/lambedigdoyo/lib/main/images/GR-cah-ndase.png
 var imageURL = document.getElementById("imageURL");
+
+imageLink.addEventListener('input', function() {
+var url = imageLink.value; 
+var xhr = new XMLHttpRequest(); 
+xhr.open('HEAD', url, true);
+xhr.onload = function() {
+    var contentType = xhr.getResponseHeader('Content-Type');
+    var type = contentType.split('/')[1];
+    imageType.value = type; 
+    cropImage()
+};
+xhr.send();
+});
 
 function cropImage() {
   canvasBox.innerHTML = '';
