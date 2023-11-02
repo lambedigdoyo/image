@@ -110,9 +110,17 @@ button:hover {
 #setWd, #setHg {
   width: 65px;
   }
-img#croppedImage {
+  }
+img#prev, img#croppedImage {
   border: 1px solid #555;
   background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  }
+img#prev {
+  position: fixed; 
+  top: 40px; 
+  right: 4.5vw; 
+  max-width: 70px; 
+  border: 3px solid #fff;  
   }
 .resetBtn {
 /* ==   position: fixed;
@@ -199,7 +207,7 @@ img#croppedImage {
 <textarea id="code" spellcheck=false wrap=logical></textarea>
 <input id=originalW style='display: none' />
 <input id=originalH style='display: none' />
-<!-- <img id=prev /> -->
+<img id=prev />
 </div>
 
 
