@@ -79,7 +79,6 @@ button:hover {
 /* ==   grid-template-columns: 40px calc(10% - 4px) calc(10% - 4px) calc(10% - 4px) calc(35% - 4px) calc(17% - 4px) calc(8% - 4px); -== */
   gap : 2px;
   border: 1px solid #555;
-
   margin: 0;
   }
 .fileDiv {
@@ -109,7 +108,6 @@ button:hover {
   }
 #setWd, #setHg {
   width: 65px;
-  }
   }
 img#prev, img#croppedImage {
   border: 1px solid #555;
@@ -269,10 +267,10 @@ function cropImage() {
   var imgWidth = setWd.value; //alert(scale)
   var imgHeight = setHg.value;
   var type = imageType.value;
-  var img = new Image();
+  var img = new Image(); // prev; 
   img.setAttribute('crossOrigin', 'anonymous');
   img.src = path;
-  prev.src = img.src;
+//  prev.src = img.src;
   img.addEventListener('load', function () {
     var cvs = document.createElement('canvas');
     cvs.setAttribute('id', 'canvas');
@@ -290,6 +288,7 @@ function cropImage() {
     ctx.drawImage(img, xPos, yPos, imgWidth / scale, imgHeight / scale, 0, 0, imgWidth, imgHeight);
     var dataCVS = cvs.toDataURL('image/' + type, +quality.value);
     croppedImage.src = dataCVS;
+    prev.src = dataCVS;
     document.getElementById('code').value = dataCVS;
   });
   canvasBox.removeChild(cvs);
