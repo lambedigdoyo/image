@@ -62,14 +62,11 @@ textarea {
   }
 input, textarea, iframe {
   outline: none!important;
-}
-button, input[type=button]:hover {
- cursor: pointer;
-}
+  }
 h3 {
   display: inline-block;
   margin: 10px 2px;
-}
+  }
 </style>
 
 </head>
@@ -85,16 +82,22 @@ h3 {
   <h3 id='fileType' style='color: red'></h3>
 </div>
 
-<textarea spellcheck=false wrap=logical>var url = 'https://raw.githack.com/lambedigdoyo/lib/main/images/fan.png';
+ <h2>Javascript-1a</h2> 
+  
+<textarea spellcheck=false wrap=logical>&lt;script&gt;
+var url = 'https://raw.githack.com/lambedigdoyo/lib/main/images/fan.png';
 var xhr = new XMLHttpRequest();
 xhr.open('HEAD', url, true);
 xhr.onload = function() {
     var contentType = xhr.getResponseHeader('Content-Type');
     console.log(contentType);
 };
-xhr.send();</textarea>
+xhr.send();
+&lt;/script&gt;</textarea>
 
-<textarea id="code" spellcheck=false wrap=logical style='height: 320px'><script>
+<h2>Javascript-1b</h2>  
+  
+<textarea id="code" spellcheck=false wrap=logical style='height: 300px'><script>
 var imageLink = document.getElementById('imageLink');
 var fileType = document.getElementById("fileType");
 
@@ -112,6 +115,33 @@ imageLink.addEventListener('input', getImageType);
 getImageType();
 </script></textarea>
 
+<h2>Javascript-2</h2>
+  
+<textarea spellcheck=false wrap=logical>&lt;script&gt;
+var url = 'https://raw.githack.com/lambedigdoyo/lib/main/images/fan.png';
+var xhr = new XMLHttpRequest();
+xhr.open('GET', url, true);
+xhr.onreadystatechange = function() {
+  var contentType = xhr.getResponseHeader('Content-Type');
+  if (contentType) {
+    xhr.abort();
+    console.log(contentType);
+  }
+};
+xhr.send();
+&lt;/script&gt;</textarea>
+
+<h2>Javascript-3</h2>
+  
+<textarea spellcheck=false wrap=logical>&lt;script&gt;&lt;/script&gt;  
+var xhr = new XMLHttpRequest();
+xhr.open('GET', url, true);
+xhr.responseType = 'blob';
+xhr.onload = function(e) {
+  fileType.textContent = xhr.response.type;
+};
+xhr.send();
+&lt;/script&gt;</textarea>
 <script>
 var imageLink = document.getElementById('imageLink');
 var fileType = document.getElementById("fileType");
