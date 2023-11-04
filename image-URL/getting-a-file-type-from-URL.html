@@ -97,7 +97,19 @@ xhr.send();
 
 <h2>Javascript-1b</h2>  
   
-<textarea id="code" spellcheck=false wrap=logical style='height: 300px'><script>
+<textarea id="code" spellcheck=false wrap=logical style='height: 300px'><style>
+h3 {
+  display: inline-block;
+  margin: 10px 2px;
+}
+</style>
+  
+<input type=text id=imageLink style='width: calc(100% - 130px)' value='https://raw.githack.com/lambedigdoyo/lib/main/images/fan.png' />
+
+<h3>file type:</h3>
+<h3 id='fileType' style='color: red'></h3>
+  
+<script>
 var imageLink = document.getElementById('imageLink');
 var fileType = document.getElementById("fileType");
 
@@ -139,7 +151,7 @@ var xhr = new XMLHttpRequest();
 xhr.open('GET', url, true);
 xhr.responseType = 'blob';
 xhr.onload = function(e) {
-  fileType.textContent = xhr.response.type;
+  console.log(xhr.response.type);
 };
 xhr.send();
 &lt;/script&gt;</textarea>
