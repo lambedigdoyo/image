@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Getting a file type from URL using fetch() method</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 10vw;
+  margin: 0;
+  background-color: #223;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  box-shadow: inset 0 245px 140px #034;
+  }
+.container {
+  width: 80vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  box-shadow: 0 40px 100px #000;
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  text-decoration: none;
+  color: darkred;  
+  }
+h2.title {
+  margin: 0 auto 20px; 
+  padding: 5px 0 20px;
+  border-bottom: 5px double #555;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 185px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+h3 {
+  display: inline-block;
+  margin: 10px 2px;
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Getting a file type from URL</h1>
+<h2 class=title>using &rarr; async & fetch() Method</h2>
+
+<strong style='color: red'>Paste URL here: </strong><input type=text id=imageLink style='width: calc(100% - 130px)' value='https://raw.githack.com/lambedigdoyo/lib/main/images/fan.png' />
+<div align=center style='padding: 5px 10px; background-color: #fff; margin: 10px auto'>
+  <h3>file type:</h3>
+  <h3 id='fileType' style='color: red'></h3>
+</div>
+
+<h2>Javascript-1A</h2> 
+
+<textarea spellcheck=false wrap=logical>&lt;script&gt;
+(async () => {
+  var url = 'https://raw.githack.com/lambedigdoyo/lib/main/images/fan.png';
+  const reponse = await fetch(url, {
+    method: 'HEAD'
+  });
+  console.log(reponse.headers.get('Content-Type'));
+})();
+&lt;/script&gt;</textarea>
+
+<h2>Javascript-1B</h2> 
+
+<textarea id="code" spellcheck=false wrap=logical style='height: 320px'><script>
+<style>
+h3 {
+  display: inline-block;
+  margin: 10px 2px;
+}
+</style>
+  
+<input type=text id=imageLink style='width: calc(100% - 130px)' value='https://raw.githack.com/lambedigdoyo/lib/main/images/fan.png' />
+
+<h3>file type:</h3>
+<h3 id='fileType' style='color: red'></h3>
+  
+<script>
+var imageLink = document.getElementById('imageLink');
+var fileType = document.getElementById("fileType");
+
+function getImageType() {
+  (async () => {
+    var url = imageLink.value;
+    var reponse = await fetch(url, {
+      method: 'HEAD'
+    });
+    fileType.textContent = reponse.headers.get('Content-Type');
+  })();
+}
+imageLink.addEventListener('input', getImageType);
+getImageType();
+</script></textarea>
+
+<script>
+var imageLink = document.getElementById('imageLink');
+var fileType = document.getElementById("fileType");
+
+function getImageType() {
+  (async () => {
+    var url = imageLink.value;
+    var reponse = await fetch(url, {
+      method: 'HEAD'
+    });
+    fileType.textContent = reponse.headers.get('Content-Type');
+})();
+}
+imageLink.addEventListener('input', getImageType);
+getImageType();
+</script>
+
+</div>
+
+</body>
+</html>
