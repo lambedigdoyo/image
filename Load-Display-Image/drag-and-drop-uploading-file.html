@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drag and Drop Uploading File</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 1vh 5vw;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 90vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2.title {
+  margin: 10px auto;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0 0 10px;
+  border-bottom: 5px double #444; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 150px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+button, input[type=button]:hover {
+ cursor: pointer;
+}
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 185px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+  }
+button, input[type=button]:hover {
+ cursor: pointer;
+  }
+.gridBox {
+  display: grid;
+  width: 100%;
+  margin: 10px auto;
+  gap: 16px;
+  grid-template-columns: calc(40% - 11px) calc(20% - 11px)  calc(40% - 11px);
+  padding: 6px;
+  background-color: #777;
+}
+.grid {
+  width: 100%;
+  height: 100%;
+  background-color: #eaedf0;
+  padding: 3px;
+  border: 1px solid #888;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.dropfilesBox {
+  width: calc(80% + 8px);
+  height: 115px;
+  border: 2px dashed #555;
+  padding: 5px;
+  margin: 5px auto;
+  background-color: #eee;
+  position: relative;
+}
+.dropfilesBox:after {
+  content: 'Drag & drop here!';
+  font: bold 20px Arial;
+  letter-spacing: -1px;
+  color: #e54242;
+  text-shadow: 1px -1px 1px #fff, -1px 0 1px #fff, 3px 2px 8px #666;
+  position: absolute;
+  top: 30%;
+  text-align: center;
+  width: 140px;
+  }
+#dropfiles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px; 
+  margin: 0 auto;
+  border: 2px dotted #555;
+  background-color: #ccc;
+  transition: 0.1s;
+  border-radius: 10px;
+  }
+#dropfiles * {
+  opacity: 0;
+  }
+h3 {
+  display: inline-block;
+  margin: 10px 2px;
+  }
+.dragover {
+  background: rgba(255,0,0,0.5) url('data:image/webp;base64,UklGRqYAAABXRUJQVlA4WAoAAAAQAAAACwAACwAAQUxQSGgAAAABcJNtb9wIgiAYQCAIQO6smg0gSLJe850gOMf0gKGnCAxBm59CiAghQULXIapCgLsqA/iJfDMTbCLWGKJseG5LVD8PgHnUhQCLKmJwu1+B2Du375sNi27fyzD8f8Rs66Uvmatl8WdeClZQOCAYAAAAMAEAnQEqDAAMAAKAQiWkAANwAP7zJAAA')!important;
+  } 
+#h2a, #h2b, #h2c, #h2x, #h2y, #h2z {
+  margin: 0 5px;
+  white-space: pre;
+  padding: 0;
+  font: bold 14px Arial;
+  text-align: left;
+}
+.imagePrevBox {
+  width: 100%;
+  background-color: #A5CCFC;
+  padding: 4px;
+  min-height: 20px;
+  font-size: 0;
+  text-align: center;
+  }
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+
+<h1>Drag and Drop Uploading File</h1>
+
+
+<input type="file" id="loadfiles" multiple>
+
+  <div class=gridBox>
+    <div class=grid>
+      <div style='width: 100%; padding: 7% 5px; overflow: auto'>
+        <h2 id=h2x></h2>
+        <h2 id=h2y></h2>
+        <h2 id=h2z></h2>
+      </div>
+    </div>
+    <div class=grid>
+      <div class=dropfilesBox>
+        <div id="dropfiles" style='text-align: center'>
+          <img id=base64 style='margin: 0 auto; min-width: 20px; height:100%' />
+        </div>
+      </div>
+    </div>
+    <div class=grid>
+      <div style='width: 100%; padding: 7% 5px; overflow: auto'>
+        <h2 id=h2a></h2>
+        <h2 id=h2b></h2>
+        <h2 id=h2c></h2>
+      </div>
+    </div>
+  </div>
+  
+  <div class=imagePrevBox>
+    <img id=imagePrev style='display: block; margin: 0 auto; max-width: 100%' />
+  </div>
+  
+<textarea spellcheck=false wrap=logical><style>
+* {
+  box-sizing: border-box;
+  }
+.gridBox {
+  display: grid;
+  width: 100%;
+  margin: 10px auto;
+  gap: 16px;
+  grid-template-columns: calc(40% - 11px) calc(20% - 11px)  calc(40% - 11px);
+  padding: 6px;
+  background-color: #777;
+}
+.grid {
+  width: 100%;
+  height: 100%;
+  background-color: #eaedf0;
+  padding: 3px;
+  border: 1px solid #888;
+  overflow: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.dropfilesBox {
+  width: calc(80% + 8px);
+  height: 115px;
+  border: 2px dashed #555;
+  padding: 5px;
+  margin: 5px auto;
+  background-color: #eee;
+  position: relative;
+}
+.dropfilesBox:after {
+  content: 'Drag & drop here!';
+  font: bold 20px Arial;
+  letter-spacing: -1px;
+  color: #e54242;
+  text-shadow: 1px -1px 1px #fff, -1px 0 1px #fff, 3px 2px 8px #666;
+  position: absolute;
+  top: 30%;
+  text-align: center;
+  width: 140px;
+  }
+#dropfiles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px; 
+  margin: 0 auto;
+  border: 2px dotted #555;
+  background-color: #ccc;
+  transition: 0.1s;
+  border-radius: 10px;
+  }
+#dropfiles * {
+  opacity: 0;
+  }
+h3 {
+  display: inline-block;
+  margin: 10px 2px;
+  }
+.dragover {
+  background: rgba(255,0,0,0.5) url('data:image/webp;base64,UklGRqYAAABXRUJQVlA4WAoAAAAQAAAACwAACwAAQUxQSGgAAAABcJNtb9wIgiAYQCAIQO6smg0gSLJe850gOMf0gKGnCAxBm59CiAghQULXIapCgLsqA/iJfDMTbCLWGKJseG5LVD8PgHnUhQCLKmJwu1+B2Du375sNi27fyzD8f8Rs66Uvmatl8WdeClZQOCAYAAAAMAEAnQEqDAAMAAKAQiWkAANwAP7zJAAA')!important;
+  } 
+#h2a, #h2b, #h2c, #h2x, #h2y, #h2z {
+  margin: 0 5px;
+  white-space: pre;
+  padding: 0;
+  font: bold 14px Arial;
+  text-align: left;
+}
+.imagePrevBox {
+  width: 100%;
+  background-color: #A5CCFC;
+  padding: 4px;
+  min-height: 20px;
+  font-size: 0;
+  text-align: center;
+  }
+</style></textarea>
+
+<textarea spellcheck=false wrap=logical><script>
+var loadfiles = document.getElementById("loadfiles");
+var h2x = document.getElementById('h2x');
+var h2y = document.getElementById('h2y');
+var h2z = document.getElementById('h2z');
+
+loadfiles.addEventListener("change", function(event) {
+  var file = loadfiles.files;
+  for (var i = 0; i < file.length; i++) {
+  h2x.textContent = "File Name:\t" + file[i].name;
+  h2y.textContent = "File - Type:\t" + file[i].type;
+  h2z.textContent = "File - Size:\t" + file[i].size + " bytes";
+
+  var imagePrev = document.getElementById('imagePrev');      
+  var rd = new FileReader();
+    rd.onloadend = ()=> {
+      b64 = rd.result; 
+      base64.src = b64; 
+      imagePrev.src = b64;
+    }
+    rd.readAsDataURL(file[i]);  
+  }
+}, false);
+</script></textarea>
+  
+<textarea spellcheck=false wrap=logical><script>
+var b64;
+var dropfiles = document.getElementById("dropfiles");
+var b64 = document.getElementById('base64');
+var imagePrev = document.getElementById('imagePrev');
+var h2a = document.getElementById('h2a');
+var h2b = document.getElementById('h2b');
+var h2c = document.getElementById('h2c');
+
+dropfiles.ondragover = function (event) { 
+  event.preventDefault(); 
+  this.classList.add('dragover');
+};
+dropfiles.ondragleave = function (event) { 
+    event.preventDefault();
+    this.classList.remove('dragover');
+};
+dropfiles.addEventListener("drop", function(event) {
+  this.classList.remove('dragover');
+  event.preventDefault();
+  var files = event.dataTransfer.files;
+
+  for (var i = 0; i < files.length; i++) {
+    h2a.textContent = "File Name:\t" + files[i].name;
+    h2b.textContent = "File - Type:\t" + files[i].type;
+    h2c.textContent = "File = Size:\t" + files[i].size + " bytes";  
+    
+    var rd = new FileReader();
+    rd.onloadend = ()=> {
+       b64 = rd.result; 
+       base64.src = b64; 
+       imagePrev.src = b64;
+    }
+    rd.readAsDataURL(files[i]);                          
+  }
+    
+  dropfiles.onmousemove = ()=> {
+    dropfiles.querySelector('img').style.opacity = 1; 
+    dropfiles.style.cssText = 'transform: scale(0.3)'; 
+  }
+  dropfiles.onmouseout = ()=> { 
+    dropfiles.style.cssText = 'transform: scale(1.0); border-radius: 10px; background: #ccc; ';
+    dropfiles.querySelector('img').style.opacity = 0; 
+  }   
+}, false);
+</script></textarea>
+
+
+</div>
+
+
+<script>
+var loadfiles = document.getElementById("loadfiles");
+var h2x = document.getElementById('h2x');
+var h2y = document.getElementById('h2y');
+var h2z = document.getElementById('h2z');
+
+loadfiles.addEventListener("change", function(event) {
+  var file = loadfiles.files;
+  for (var i = 0; i < file.length; i++) {
+  h2x.textContent = "File Name:\t" + file[i].name;
+  h2y.textContent = "File - Type:\t" + file[i].type;
+  h2z.textContent = "File - Size:\t" + file[i].size + " bytes";
+
+  var imagePrev = document.getElementById('imagePrev');      
+  var rd = new FileReader();
+    rd.onloadend = ()=> {
+      b64 = rd.result; 
+      base64.src = b64; 
+      imagePrev.src = b64;
+    }
+    rd.readAsDataURL(file[i]);  
+  }
+}, false);
+</script>
+
+
+<script>
+var b64;
+var dropfiles = document.getElementById("dropfiles");
+var b64 = document.getElementById('base64');
+var imagePrev = document.getElementById('imagePrev');
+var h2a = document.getElementById('h2a');
+var h2b = document.getElementById('h2b');
+var h2c = document.getElementById('h2c');
+
+dropfiles.ondragover = function (event) { 
+  event.preventDefault(); 
+  this.classList.add('dragover');
+};
+dropfiles.ondragleave = function (event) { 
+    event.preventDefault();
+    this.classList.remove('dragover');
+};
+dropfiles.addEventListener("drop", function(event) {
+  this.classList.remove('dragover');
+  event.preventDefault();
+  var files = event.dataTransfer.files;
+
+  for (var i = 0; i < files.length; i++) {
+    h2a.textContent = "File Name:\t" + files[i].name;
+    h2b.textContent = "File - Type:\t" + files[i].type;
+    h2c.textContent = "File = Size:\t" + files[i].size + " bytes";  
+    
+    var rd = new FileReader();
+    rd.onloadend = ()=> {
+       b64 = rd.result; 
+       base64.src = b64; 
+       imagePrev.src = b64;
+    }
+    rd.readAsDataURL(files[i]);                          
+  }
+    
+  dropfiles.onmousemove = ()=> {
+    dropfiles.querySelector('img').style.opacity = 1; 
+    dropfiles.style.cssText = 'transform: scale(0.3)'; 
+  }
+  dropfiles.onmouseout = ()=> { 
+    dropfiles.style.cssText = 'transform: scale(1.0); border-radius: 10px; background: #ccc; ';
+    dropfiles.querySelector('img').style.opacity = 0; 
+  }   
+}, false);
+</script>
+
+</body>
+</html>
