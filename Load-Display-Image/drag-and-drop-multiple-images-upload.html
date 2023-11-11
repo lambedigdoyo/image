@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drag and Drop Multiple Images Upload</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 530px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+}
+#inputOuter {
+  width: 100%;
+  height: 130px;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px dashed #666;
+}
+#inputInner {
+  width: 100%;
+  height: 110px;
+  background-color: white;
+  border: 2px dashed #000;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: 0.6s;
+}
+#inputInner.dragover, #inputOuter.dragover {
+  background-color: grey;
+  border-color: #fff;
+}
+.file {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#prevBox {
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-radius: 5px;
+  background-color: #555;
+  padding: 4px;
+  font-size: 0;
+  visibility: hidden;
+}
+#prevBox .preview {
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+}
+#prevBox .preview img {
+  height: 100%;
+  width: 100%;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  border: 1px solid #eee;
+}
+
+#prevBox .preview span {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  cursor: pointer;
+  font-size: 22px;
+  color: white;
+}
+#prevBox .preview span {
+  font: bold 32px Arial;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  overflow: hidden;
+  color: #444; 
+  opacity: 0.3;
+  border: 2px solid #000;
+  border-radius: 50%;
+  line-height: 22px;
+}
+#prevBox .preview:hover span {
+  opacity: 0.8;
+}
+#prevBox .span--hidden {
+  visibility: hidden;
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+  <h1>Drag and Drop Multiple Images Upload</h1>
+
+  <div id=inputOuter>
+    <div id="inputInner"> 
+      <p><strong style='font-size: 18px'>Browse....</strong><br>Drag & drop Images here</p>
+      <input type="file" class="file" multiple="multiple" accept="image/*">
+    </div>
+  </div>
+
+  <div id=prevBox></div>
+
+  
+  <textarea wrap=logical spellcheck=false><style>#inputOuter {
+  width: 100%;
+  height: 130px;
+  background-color: #fff;
+  padding: 10px;
+  border: 1px dashed #666;
+}
+#inputInner {
+  width: 100%;
+  height: 110px;
+  background-color: white;
+  border: 2px dashed #000;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  transition: 0.6s;
+}
+#inputInner.dragover, #inputOuter.dragover {
+  background-color: grey;
+  border-color: #fff;
+}
+.file {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+#prevBox {
+  width: 100%;
+  min-height: 150px;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-radius: 5px;
+  background-color: #555;
+  padding: 4px;
+  font-size: 0;
+  visibility: hidden;
+}
+#prevBox .preview {
+  height: 150px;
+  overflow: hidden;
+  position: relative;
+}
+#prevBox .preview img {
+  height: 100%;
+  width: 100%;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  border: 1px solid #eee;
+}
+#prevBox .preview span {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  cursor: pointer;
+  font-size: 22px;
+  color: white;
+}
+#prevBox .preview span {
+  font: bold 32px Arial;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  overflow: hidden;
+  color: #444; 
+  opacity: 0.3;
+  border: 2px solid #000;
+  border-radius: 50%;
+  line-height: 22px;
+}
+#prevBox .preview:hover span {
+  opacity: 0.8;
+}
+#prevBox .span--hidden {
+  visibility: hidden;
+}
+</style></textarea>
+  
+    <textarea wrap=logical spellcheck=false style='height: 150px'><div class=container>
+
+  <h1>Drag and Drop Multiple Images Upload</h1>
+
+  <div id=inputOuter>
+    <div id="inputInner"> 
+      <p><strong style='font-size: 18px'>Browse....</strong><br>Drag & drop Images here</p>
+      <input type="file" class="file" multiple="multiple" accept="image/*">
+    </div>
+  </div>
+
+  <div id=prevBox></div></textarea>
+
+
+  <textarea wrap=logical spellcheck=false><script>
+var inputInner = document.getElementById("inputInner");
+var inputOuter = document.getElementById("inputOuter");
+var input = document.querySelector("input");
+var prevBox = document.getElementById("prevBox");
+var imagesArray = [];
+
+inputInner.addEventListener("dragover", ()=> {
+  inputInner.classList.add('dragover');
+  inputOuter.classList.add('dragover');
+})
+input.addEventListener("change", () => {
+  prevBox.style.visibility = 'visible';
+  var files = input.files
+  for (var i = 0; i < files.length; i++) {
+    imagesArray.push(files[i]);
+  }
+  displayImages();
+})
+
+inputInner.addEventListener("drop", () => {
+  inputInner.classList.remove('dragover');
+  inputOuter.classList.remove('dragover');
+  e.preventDefault();
+  var files = e.dataTransfer.files
+  for (var i = 0; i < files.length; i++) {
+    if (!files[i].type.match("image")) continue;
+
+    if (imagesArray.every(image => image.name !== files[i].name));
+      imagesArray.push(files[i]);
+  }
+  displayImages();
+})
+
+function displayImages() {
+  
+  var images = "";
+  imagesArray.forEach((image, index) => {
+  var blobURL = URL.createObjectURL(image);
+    images += `<div class="preview">
+                <img src="${blobURL}" alt="image">
+                <span onclick="deleteImage(${index})">&times;</span>
+              </div>`
+  });
+  prevBox.innerHTML = images;
+}
+
+function deleteImage(index) {
+  imagesArray.splice(index, 1)
+  displayImages()
+}
+</script></textarea>
+
+  
+</div>
+
+<script>
+var inputInner = document.getElementById("inputInner");
+var inputOuter = document.getElementById("inputOuter");
+var input = document.querySelector("input");
+var prevBox = document.getElementById("prevBox");
+var imagesArray = [];
+
+inputInner.addEventListener("dragover", ()=> {
+  inputInner.classList.add('dragover');
+  inputOuter.classList.add('dragover');
+})
+input.addEventListener("change", () => {
+  prevBox.style.visibility = 'visible';
+  var files = input.files
+  for (var i = 0; i < files.length; i++) {
+    imagesArray.push(files[i]);
+  }
+  displayImages();
+})
+
+inputInner.addEventListener("drop", () => {
+  inputInner.classList.remove('dragover');
+  inputOuter.classList.remove('dragover');
+  e.preventDefault();
+  var files = e.dataTransfer.files
+  for (var i = 0; i < files.length; i++) {
+    if (!files[i].type.match("image")) continue;
+
+    if (imagesArray.every(image => image.name !== files[i].name));
+      imagesArray.push(files[i]);
+  }
+  displayImages();
+})
+
+function displayImages() {
+  
+  var images = "";
+  imagesArray.forEach((image, index) => {
+  var blobURL = URL.createObjectURL(image);
+    images += `<div class="preview">
+                <img src="${blobURL}" alt="image">
+                <span onclick="deleteImage(${index})">&times;</span>
+              </div>`
+  });
+  prevBox.innerHTML = images;
+}
+
+function deleteImage(index) {
+  imagesArray.splice(index, 1)
+  displayImages()
+}
+</script>
+
+</body>
+</html>
