@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Draggable Image (in absolute position)</title>
+
+<head>
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 1vh 15vw;
+  margin: 0;
+  background-color: #555;
+  font: normal 14px Arial, Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 70vw;
+  height: 100%;
+  padding: 5px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2;
+  position: relative;
+  overflow: hidden;
+  }
+h1 {
+  text-align: center;
+  background-color: #0E3D38;
+  color: #eee;
+  padding: 15px 0;
+  margin: 0 auto;
+}
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 350px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+#dragImg {
+  position: absolute;
+  z-index: 9;
+  background: #f1f1f1 url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  border: 5px solid #444;
+  border-radius: 10px;
+  text-align: center;
+  user-select: none;
+}
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Draggable Image (in absolute position)</h1>
+
+<img id="dragImg" src="https://source.unsplash.com/random/200x300?/bikini" />
+
+<textarea spellcheck=false wrap=logical><style>
+#dragImg {
+  position: absolute;
+  z-index: 9;
+  background: #f1f1f1 url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  border: 5px solid #444;
+  border-radius: 10px;
+  text-align: center;
+  user-select: none;
+}
+</style>
+
+<img id="dragImg" src="https://source.unsplash.com/random/200x300?/bikini" />
+
+<script>
+function dragImage() {
+var dragImg = document.getElementById("dragImg");
+  var x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+  if (dragImg) {
+    dragImg.onmousedown = dragStart;
+  } else {
+    dragImg.onmousedown = dragStart;
+  }
+
+  function dragStart(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    x2 = e.clientX;
+    y2 = e.clientY;
+    document.onmouseup = endDrag;
+    // call a function whenever the cursor moves:
+    document.onmousemove = dragMove;
+    dragImg.style.cursor = "move";
+  }
+
+  function dragMove(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    x1 = x2 - e.clientX;
+    y1 = y2 - e.clientY;
+    x2 = e.clientX;
+    y2 = e.clientY;
+    // set the element's new position:
+    dragImg.style.top = (dragImg.offsetTop - y1) + "px";
+    dragImg.style.left = (dragImg.offsetLeft - x1) + "px";
+    dragImg.style.cursor = "pointer";
+  }
+
+  function endDrag() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+dragImage();
+</script></textarea>
+
+</div>
+
+
+<script>
+function dragImage() {
+var dragImg = document.getElementById("dragImg");
+  var x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+  if (dragImg) {
+    dragImg.onmousedown = dragStart;
+  } else {
+    dragImg.onmousedown = dragStart;
+  }
+
+  function dragStart(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // get the mouse cursor position at startup:
+    x2 = e.clientX;
+    y2 = e.clientY;
+    document.onmouseup = endDrag;
+    // call a function whenever the cursor moves:
+    document.onmousemove = dragMove;
+    dragImg.style.cursor = "move";
+  }
+
+  function dragMove(e) {
+    e = e || window.event;
+    e.preventDefault();
+    // calculate the new cursor position:
+    x1 = x2 - e.clientX;
+    y1 = y2 - e.clientY;
+    x2 = e.clientX;
+    y2 = e.clientY;
+    // set the element's new position:
+    dragImg.style.top = (dragImg.offsetTop - y1) + "px";
+    dragImg.style.left = (dragImg.offsetLeft - x1) + "px";
+    dragImg.style.cursor = "pointer";
+  }
+
+  function endDrag() {
+    document.onmouseup = null;
+    document.onmousemove = null;
+  }
+}
+dragImage();
+</script>
+
+</body>
+</html>
