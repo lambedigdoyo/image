@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Drag and Drop File Uploader with File Data & Image Preview</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 20vw;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 60vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 530px;
+  padding: 6px;
+  margin: 0;                    margin: 30px auto 20px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+  }
+#fileSelector {
+  position: absolute;
+  width: 100%; 
+  height: 100%; 
+  overflow: hidden; 
+  opacity: 0;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  }
+#selectorBox {
+  margin: 10px auto;
+  outline: 10px solid #f1d0d0;
+  border: 3px dashed darkred;
+  padding: 10px;
+  width: 300px;
+  height: 132px;
+  background-color: #f1d0d0;
+  position: relative;
+  }
+#prevBox {
+  width: 100%;
+  min-height: 40px;
+  background-color: #055a60;
+  padding: 4px;
+  text-align: center;
+  font-size: 0;
+  display: none;
+  }
+#prevBox img {
+  max-width: 100%;
+  border: 1px solid #eee;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  }
+#fileData {
+  display: none;
+  text-align: left;
+  min-width: 100px;
+  background-color: #555;
+  color: #eee;
+  padding: 10px 15px 10px 25px;
+  }
+#fileDataBox {
+  display: block;
+  margin: 20px auto 10px;
+  text-align: center;
+  display: none;
+  }
+h3 {
+  position: absolute;
+  font: bold 20px Arial;
+  color: #777;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 35px 0;
+  margin: auto;
+  text-align: center;
+  z-index: 1;
+  }
+</style>
+
+</head>
+<body>
+
+<div class=container>
+ 
+  <h1>Drag and Drop File Uploader with Data & Image Preview</h1>
+<image src="file:///D:/GR/HTML-editor/w3schools/lib/w3s-logo.png" style="width: 10%; display: block; margin: 10px auto 10px;"/>
+
+  <div id="selectorBox">
+    <input type=file id=fileSelector accept='image/*' />
+    <h3>Browse... or<br>Drag and Drop here!!</h3>
+  </div>
+  <div id=fileDataBox>
+  <ul id="fileData"></ul>
+  </div>
+  <div id=prevBox>
+    <img id=imagePrev />
+  </div>
+ 
+<textarea id="code" spellcheck=false wrap=logical placeholder="write text here..."></textarea>
+  
+</div>
+
+
+<script>
+var selectorBox = document.getElementById('selectorBox');
+var fileSelector = document.getElementById('fileSelector');
+var fileData = document.getElementById('fileData');
+var fileDataBox = document.getElementById('fileDataBox');
+var prevBox = document.getElementById('prevBox');
+var imagePrev = document.getElementById('imagePrev');
+fileSelector.addEventListener('change', function(event) {
+  
+  fileData.innerHTML = '';
+  var fileInput = event.target.files;
+  getData(fileInput);
+})
+if (window.FileList && window.File) {
+  selectorBox.addEventListener('dragover', event => {
+    selectorBox.style.background = 'grey';
+    event.stopPropagation();
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'copy';
+  });
+  selectorBox.addEventListener('drop', event => {
+
+    selectorBox.style.background = '#f1d0d0';
+    fileData.innerHTML = '';
+    event.stopPropagation();
+    event.preventDefault();
+    var filexx = event.dataTransfer.files;
+    getData(filexx)
+  }); 
+}
+
+function getData(files) {
+    prevBox.style.display = 'block';
+    fileData.style.display = 'inline-block';
+    fileDataBox.style.display = 'block';
+    for (let i = 0; i < files.length; i++) {
+      var file = files[i];
+      var name = file.name ? file.name : 'NOT SUPPORTED';
+      var type = file.type ? file.type : 'NOT SUPPORTED';
+      var size = file.size ? file.size : 'NOT SUPPORTED';
+      }
+      var arr = [`name: ${name}`, `type: ${type}`, `size: ${size}`];
+      for (i = 0; i <= arr.length - 1; i++) {
+        var li = document.createElement('li'); 
+        li.textContent = arr[i]; 
+        fileData.appendChild(li);
+      }
+     var blobURL = URL.createObjectURL(file); 
+     var img = imagePrev;
+     img.src = blobURL;
+     URL.revokeObjectURL(img.src); 
+     }
+</script>
+
+
+<script>
+window.onload = function() {
+  document.getElementById("code").innerHTML = "<!DOCTYPE html>\n<html>\n" + document.documentElement.innerHTML + "\n<html>"
+};
+</script>
+
+</body>
+</html>
