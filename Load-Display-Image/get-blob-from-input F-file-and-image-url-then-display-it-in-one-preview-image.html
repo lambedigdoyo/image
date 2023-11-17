@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head> 
+  <meta charset=utf-8>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get Blob from Input File & Image URL then Display it in One Preview Image</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 5vw;
+  margin: 0;
+background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 90vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+h1, h2 {
+  margin: 10px auto 0;
+  text-align: center;
+  font: bold 27px Times; 
+  color: blue; 
+  padding: 0; 
+  text-decoration: underline; 
+  text-shadow: 1px 1px 1px #fff, -1px -1px 1px #fff, 0 0 6px #000
+  }
+h2 {
+  font-size: 20px;
+  margin: 0; 
+  text-decoration: none;
+  padding: 0;
+  color: darkred;
+  }
+textarea {
+  display: block;
+  width: 100%;
+  height: calc(100% - 22px);    height: 340px;
+  padding: 6px;
+  margin: 0;                    margin: 10px auto 10px;
+  font: normal 14px Monospace;
+  border: 1px solid orange;
+  background-color: lightyellow;
+  resize: none;
+  cursor: auto!important;
+  }
+input, textarea, iframe {
+  outline: none!important;
+  }
+button, input[type=button]:hover {
+ cursor: pointer;
+  }
+.imageBox {
+  width: 100%;
+  min-height: 30px;
+  margin: 10px auto;
+  padding: 5px;
+  text-align: center;
+  font-size: 0;
+  background-color: #888;
+  border: 1px solid #000;
+  font-size: 0;
+  }
+.imageBox img{
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #000;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  }
+.gridBox {
+  display: grid;
+  width: 100%;
+  height: 30px;
+  overflow: auto;
+  margin: 10px auto;
+  gap: 16px;
+  grid-template-columns: calc(45% - 8px) calc(55% - 8px);
+  }
+.grid1, .grid2 {
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+  padding: 3px;
+  }
+input#fileSelect {
+  width: calc(100% - 180px);
+  }
+input#imageLink {
+  width: calc(100% - 160px);
+  text-align: center;
+  }
+label {
+  font: normal 15px Arial;
+  }
+</style>
+
+</head>
+<body>
+
+<div class=container>
+
+<h1>Get Blob from Input File & Image URL then Display it in One Preview Image</h1>
+  <div class=gridBox>
+    <div class=grid1>
+      <label id=labelSelect for='fileSelect'>Select some files here : </label>
+      <input type=file id=fileSelect accept='image/*' />
+    </div>
+    <div class=grid2>
+      <label for='imageLink'>Paste image URL here: </label>
+      <input type=text id=imageLink value='https://source.unsplash.com/random/400x600?swimsuit/' />
+    </div>
+  </div>
+
+  <div class=imageBox>
+    <img id=imagePrev src="https://source.unsplash.com/random/400x600?swimsuit/" />
+  </div>
+
+<!-- ====================================================== -->
+
+<h3>CSS:</h3>
+<textarea spellcheck=false wrap=logical><style>
+* {
+  box-sizing: border-box;
+  }
+html, body {
+  height: 100%;
+  width: 100%;
+  }
+body {
+  height: 100vh;
+  padding: 2vh 5vw;
+  margin: 0;
+  background-color: #333;
+  font: normal 14px "Consolas", Monospace;
+  overflow: hidden;
+  }
+.container {
+  width: 90vw;
+  height: 100%;
+  padding: 0 20px;
+  margin: 0 auto;
+  overflow: auto;
+  background-color: #F9F7C2
+  }
+.imageBox {
+  width: 100%;
+  min-height: 30px;
+  margin: 10px auto;
+  padding: 5px;
+  text-align: center;
+  font-size: 0;
+  background-color: #888;
+  border: 1px solid #000;
+  font-size: 0;
+  }
+.imageBox img{
+  max-width: 100%;
+  height: auto;
+  margin: 0 auto;
+  border: 1px solid #000;
+  background: url('data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAACwAwCdASoUABQAPikQh0IhoQoDVAwBQlpLMC/AAZIB/cgA9mAsAAD+/m0PR7EzRynHlSzu83/+MB/qX/yAn++PEB/AAAAA');
+  }
+.gridBox {
+  display: grid;
+  width: 100%;
+  height: 30px;
+  overflow: auto;
+  margin: 10px auto;
+  gap: 16px;
+  grid-template-columns: calc(45% - 8px) calc(55% - 8px);
+  }
+.grid1, .grid2 {
+  width: 100%;
+  height: 100%;
+  background-color: #fafafa;
+  padding: 3px;
+  }
+input#fileSelect {
+  width: calc(100% - 180px);
+  }
+input#imageLink {
+  width: calc(100% - 160px);
+  text-align: center;
+  }
+label {
+  font: normal 15px Arial;
+  }
+</style></textarea>
+
+<h3>HTML:</h3>
+<textarea spellcheck=false wrap=logical><div class=container>
+  <div class=gridBox>
+    <div class=grid1>
+      <label id=labelSelect for='fileSelect'>Select some files here : </label>
+      <input type=file id=fileSelect accept='image/*' />
+    </div>
+    <div class=grid2>
+      <label for='imageLink'>Paste image URL here: </label>
+      <input type=text id=imageLink value='https://source.unsplash.com/random/400x600?swimsuit/' />
+    </div>
+  </div>
+
+  <div class=imageBox>
+    <img id=imagePrev src="https://source.unsplash.com/random/400x600?swimsuit/" />
+  </div>
+</div></textarea>
+
+<h3>Javascript:</h3>
+<textarea spellcheck=false wrap=logical><script>
+var fileSelect = document.getElementById('fileSelect');
+var imageLink = document.getElementById('imageLink');
+var imagePrev = document.getElementById('imagePrev');
+var xhr = new XMLHttpRequest();
+
+fileSelect.addEventListener('change', handleFiles, false);
+
+function handleFiles(event) {
+  var file = event.target.files[0];
+  imagePrev.onload = ()=> {
+    URL.revokeObjectURL(imagePrev.src);
+  };
+  var blobURL1 = URL.createObjectURL(file);
+  imagePrev.src = blobURL1;
+}
+
+function getBlob() {
+  xhr.open('GET', imageLink.value, true); 
+  xhr.responseType = 'blob';
+  xhr.onload = function(e) {
+    if (this.status == 200) {
+      var blob = this.response;
+      var blobURL2 = URL.createObjectURL(blob);
+      imagePrev.src = blobURL2;
+    }
+  };
+  xhr.onerror = function(e) {
+    alert("Error: " + e.target.status + " occurred while receiving the document.");
+  };
+xhr.send();
+}
+imageLink.oninput = getBlob;
+</script></textarea>
+
+
+</div>
+
+
+<script>
+var fileSelect = document.getElementById('fileSelect');
+var imageLink = document.getElementById('imageLink');
+var imagePrev = document.getElementById('imagePrev');
+var xhr = new XMLHttpRequest();
+
+fileSelect.addEventListener('change', handleFiles, false);
+
+function handleFiles(event) {
+  var file = event.target.files[0];
+  imagePrev.onload = ()=> {
+    URL.revokeObjectURL(imagePrev.src);
+  };
+  var blobURL1 = URL.createObjectURL(file);
+  imagePrev.src = blobURL1;
+}
+
+function getBlob() {
+  xhr.open('GET', imageLink.value, true); 
+  xhr.responseType = 'blob';
+  xhr.onload = function(e) {
+    if (this.status == 200) {
+      var blob = this.response;
+      var blobURL2 = URL.createObjectURL(blob);
+      imagePrev.src = blobURL2;
+    }
+  };
+  xhr.onerror = function(e) {
+    alert("Error: " + e.target.status + " occurred while receiving the document.");
+  };
+xhr.send();
+}
+imageLink.oninput = getBlob;
+</script>
+
+</body>
+</html>
